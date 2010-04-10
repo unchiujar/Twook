@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/195/trunk/nookFileManager/res/layout
+END
+filedetail.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/132/trunk/nookFileManager/res/layout/filedetail.xml
+END
+statustxt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/132/trunk/nookFileManager/res/layout/statustxt.xml
+END
+main.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/195/trunk/nookFileManager/res/layout/main.xml
+END
+textinput.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/135/trunk/nookFileManager/res/layout/textinput.xml
+END
+listitem.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/132/trunk/nookFileManager/res/layout/listitem.xml
+END
+folderinput.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/132/trunk/nookFileManager/res/layout/folderinput.xml
+END
+listitem2.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/195/trunk/nookFileManager/res/layout/listitem2.xml
+END

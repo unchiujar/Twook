@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="275.0px" android:layout_height="fill_parent"
+	android:background="#FFFFFF">
+	<ImageButton
+		android:id="@+id/icon" android:layout_width="96.0px"
+		android:layout_height="fill_parent" android:layout_marginLeft="20.0px"
+		android:background="@drawable/list_button" android:gravity="center" 
+		android:scaleType="centerInside"
+	/>
+	<ScrollView       android:layout_width="fill_parent" 
+			android:layout_height="fill_parent" android:scrollbars="vertical"
+			android:layout_toRightOf="@id/icon" android:layout_marginTop="30.0px">
+		<TextView android:id="@+id/text" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" 
+		android:textColor="#000000"
+		android:textSize="16.0px"  />
+	</ScrollView>
+		<ImageView android:layout_width="1.0px"
+		android:layout_height="144.0px" android:background="#000000"/>
+</RelativeLayout>

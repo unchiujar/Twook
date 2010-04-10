@@ -1,0 +1,19 @@
+ Add support for selecting individual tweets
+	* follow/unfollow button depending on the following status of the user selected
+	* retweet button
+	* direct message button
+	* selected user information (tweets sent, account info)
+	* favorite
+List direct messages
+List favorite tweets
+List featured users with current tweets
+List followers
+List friends
+List retweets 
+Customized search buttons
+
+
+optimizations
+Image cache
+retrieve only messages that have not been retrieved before (possible ?)
+Additive timeline instead of replacing, up to the last xxx tweets to be decided in settings

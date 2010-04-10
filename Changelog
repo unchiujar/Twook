@@ -1,0 +1,8 @@
+2010-04-10 Vasile Jureschi  <vasile.jureschi@gmail.com>
+		
+		* added support for scrolling the ListView containing the tweets
+		
+2010-04-09 Vasile Jureschi  <vasile.jureschi@gmail.com>
+     	
+     	* added validity test for credentials  entered on the settings page
+     	* added message for invalid credentials

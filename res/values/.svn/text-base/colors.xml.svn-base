@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<drawable name="button_pressed">#808080</drawable>
+	<drawable name="button_normal">#FFFFFF</drawable>
+	<drawable name="header_pressed">#0000FF</drawable>
+	<drawable name="header_normal">#C0C0C0</drawable>
+	
+</resources>

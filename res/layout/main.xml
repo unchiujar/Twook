@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--***********************************************
+This file is part of the Twook project (**linky**).
+
+    Twook is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Twook is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Twook.  If not, see <http://www.gnu.org/licenses/>.
+
+**********************************************-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:background="#FFFFFFFF"
+		android:textColor="#000000">
+	<!-- this Frame is used merely to block out the eink-display -->
+
+	<ListView android:layout_height="760px" android:layout_width="fill_parent"
+		android:background="#FFFFFFFF"
+		android:textColor="#000000" android:id="@+id/android:list" android:fastScrollEnabled="true" android:cacheColorHint="#00000000" android:scrollingCache="true"></ListView>
+
+
+
+	<LinearLayout android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:id="@+id/buttons">
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/tweet"
+			android:src="@drawable/tweet_button"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/replies"
+			android:src="@drawable/replies_button"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/personalTimeline"
+			android:src="@drawable/personal_timeline_button"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/publicTimeline"
+			android:src="@drawable/public_timeline_button"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/settings"
+			android:src="@drawable/settings_button"></ImageButton>
+
+	</LinearLayout>
+</LinearLayout>
