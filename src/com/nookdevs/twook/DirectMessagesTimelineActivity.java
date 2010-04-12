@@ -14,14 +14,14 @@ This file is part of the Twook project (**linky**).
     You should have received a copy of the GNU General Public License
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 
 package com.nookdevs.twook;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
-import twitter4j.Status;
+import twitter4j.DirectMessage;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -29,10 +29,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 /**
  * 
- * Activity that displays the public timeline. 
- *  
+ * Activity that displays the retweets of the user's messages.
+ * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
@@ -40,38 +41,50 @@ import android.view.View.OnClickListener;
  * @see TimelineActivity
  * 
  */
-
-public class PublicTimelineActivity extends TimelineActivity {
+public class DirectMessagesTimelineActivity extends TimelineActivity {
 
 	@Override
-	public void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		updateView("Retrieving public timeline");
+		updateView("Retrieving direct messages timeline");
 	}
+
 	@Override
 	protected List<Tweet> getTweets() {
-		Twitter twitter = new TwitterFactory().getInstance();
-	    List<Status> statuses;
+		List<Tweet> tweets = new ArrayList<Tweet>();
+		Settings settings = Settings.getSettings();
+		// The factory instance is re-useable and thread safe.
+		Twitter receiver = new TwitterFactory().getInstance(settings
+				.getUsername(), settings.getPassword());
+		List<DirectMessage> messages;
 		try {
-			statuses = twitter.getPublicTimeline();
-		    return statusToTweets(statuses);
+			messages = receiver.getDirectMessages();
+			for (DirectMessage message : messages) {
+				Tweet tweet = new Tweet();
+				tweet.setMessage(message.getText());
+				tweet.setUsername(message.getSender().getName());
+				tweet.setImage(downloadFile(message.getSender()
+						.getProfileImageURL()));
 
+			}
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return tweets;
 	}
+
 	@Override
 	protected void createListeners() {
-		btn_public_timeline.setOnClickListener(new OnClickListener() {
-
+		btn_direct_messages_timeline.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				updateView("Retrieving public timeline");
-				Log.d(this.getClass().getName(),"Public timeline button clicked");	
+				updateView("Retrieving direct messages timeline");
+				Log.d(this.getClass().getName(),
+						"Direct messages timeline button clicked");
+
 			}
 		});
-		
+
 	}
 }

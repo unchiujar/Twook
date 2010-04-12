@@ -35,6 +35,15 @@ import android.graphics.Bitmap;
 public class Tweet {
 	private String message;
 	private Bitmap image;
+	private String username;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public Bitmap getImage() {
 		return image;

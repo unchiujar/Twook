@@ -21,7 +21,7 @@ This file is part of the Twook project (**linky**).
       package="com.nookdevs.twook"
       android:versionCode="2"
       android:versionName="0.0.2">
-    <application android:label="@string/app_name" android:icon="@drawable/tweet">
+    <application android:label="@string/app_name" android:icon="@drawable/twookicon">
         <activity android:name=".PublicTimelineActivity"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar">
@@ -36,6 +36,12 @@ This file is part of the Twook project (**linky**).
 <activity android:name="PersonalTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="TweetActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="RepliesTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="RetweetsTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="DirectMessagesTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="FollowersActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="FollowingActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="HomeTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+
 </application>
     <uses-sdk android:minSdkVersion="3" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />

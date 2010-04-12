@@ -19,8 +19,8 @@ This file is part of the Twook project (**linky**).
 
  <selector xmlns:android="http://schemas.android.com/apk/res/android">
      <item android:state_pressed="true"
-           android:drawable="@drawable/home" /> <!-- pressed -->
+           android:drawable="@drawable/personal" /> <!-- pressed -->
      <item android:state_focused="true"
-           android:drawable="@drawable/home" /> <!-- focused -->
-     <item android:drawable="@drawable/home" /> <!-- default --> 
+           android:drawable="@drawable/personal" /> <!-- focused -->
+     <item android:drawable="@drawable/personal" /> <!-- default --> 
  </selector>

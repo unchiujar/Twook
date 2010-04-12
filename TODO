@@ -17,3 +17,4 @@ optimizations
 Image cache
 retrieve only messages that have not been retrieved before (possible ?)
 Additive timeline instead of replacing, up to the last xxx tweets to be decided in settings
+API usage checks !

@@ -29,9 +29,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 /**
  * 
- * Activity that displays the public timeline. 
+ * Activity that displays the latest statuses of the users
+ * followed by the authenticated user.  Displays the latest 100
+ * users followed.
  *  
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
@@ -40,20 +43,21 @@ import android.view.View.OnClickListener;
  * @see TimelineActivity
  * 
  */
-
-public class PublicTimelineActivity extends TimelineActivity {
-
+public class FollowingActivity extends TimelineActivity {
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		updateView("Retrieving public timeline");
+		updateView("WORK IN PROGRESS");
 	}
 	@Override
 	protected List<Tweet> getTweets() {
-		Twitter twitter = new TwitterFactory().getInstance();
+		Settings settings = Settings.getSettings();
+		Twitter twitter = new TwitterFactory().getInstance(settings.getUsername(),
+				settings.getPassword());
 	    List<Status> statuses;
 		try {
-			statuses = twitter.getPublicTimeline();
+			statuses = twitter.getFriendsTimeline();
 		    return statusToTweets(statuses);
 
 		} catch (TwitterException e) {
@@ -64,12 +68,13 @@ public class PublicTimelineActivity extends TimelineActivity {
 	}
 	@Override
 	protected void createListeners() {
-		btn_public_timeline.setOnClickListener(new OnClickListener() {
+		btn_followed.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				updateView("Retrieving public timeline");
-				Log.d(this.getClass().getName(),"Public timeline button clicked");	
+				updateView("WORK IN PROGRESS");
+				Log.d(this.getClass().getName(),"Followed button clicked");
+				
 			}
 		});
 		

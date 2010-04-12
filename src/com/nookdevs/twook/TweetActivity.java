@@ -18,7 +18,10 @@ This file is part of the Twook project (**linky**).
 
 package com.nookdevs.twook;
 
-import winterwell.jtwitter.Twitter;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,17 +79,20 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 			Settings settings = Settings.getSettings();
 			EditText tweetEdit = (EditText) findViewById(R.id.tweet_message);
 			String tweet = tweetEdit.getText().toString();
-			Twitter twitter = new Twitter(settings.getUsername(), settings
-					.getPassword());
-			
-			//twook should be registered with twitter to be able to use this feature
-			twitter.setSource(null);
-			twitter.updateStatus(tweet);
+
+			// The factory instance is re-useable and thread safe.
+		    Twitter twitter = new TwitterFactory().getInstance(settings.getUsername(),
+		    		settings.getPassword());
+		    twitter.updateStatus(tweet);
 			Thread.sleep(WAIT_TIME);
 		} catch (InterruptedException excep) {
 			Log.e(this.getClass().getName(), "Thread has been interrupted "
 					+ excep.getMessage());
+		} catch(TwitterException excep){
+			Log.e(this.getClass().getName(), "Twitter exception"
+					+ excep.getMessage());	
 		}
+		
 	}
 
 	private void processCmd(int keyCode) {

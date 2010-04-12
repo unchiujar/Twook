@@ -1,3 +1,13 @@
+2010-04-13 Vasile Jureschi  <vasile.jureschi@gmail.com>
+		
+		* switched to using twitter4j
+		* added application icon for Kyled
+		* modified the layout for the buttons, now there are 3 rows of buttons
+		* add functionality for retrieving: direct messages, retweets, 
+			friends timeline, home timeline
+		* added credits file
+		
+
 2010-04-10 Vasile Jureschi  <vasile.jureschi@gmail.com>
 		
 		* added support for scrolling the ListView containing the tweets

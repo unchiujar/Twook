@@ -14,10 +14,12 @@ This file is part of the Twook project (**linky**).
     You should have received a copy of the GNU General Public License
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 package com.nookdevs.twook;
 
-import winterwell.jtwitter.Twitter;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,12 +32,11 @@ import android.widget.TextView;
 
 import com.nookdevs.common.nookBaseSimpleActivity;
 
-
 /**
  * 
- * Activity that prompts the user to enter a username and password. 
- *  
- *  
+ * Activity that prompts the user to enter a username and password.
+ * 
+ * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
@@ -63,16 +64,17 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 		EditText password = (EditText) findViewById(R.id.password);
 		username.setOnKeyListener(credentialsListener);
 		password.setOnKeyListener(credentialsListener);
-		
+
 		Settings settings = Settings.getSettings();
 		username.setText(settings.getUsername());
 		password.setText(settings.getPassword());
 	}
+
 	/**
-	 * Helper method used for processing events recieved from
-	 * the soft keyboard.
+	 * Helper method used for processing events recieved from the soft keyboard.
 	 * 
-	 * @param keyCode the keyCode received from the soft keyboard
+	 * @param keyCode
+	 *            the keyCode received from the soft keyboard
 	 * @see nookBaseSimpleActivity
 	 */
 	private void processCmd(int keyCode) {
@@ -82,18 +84,16 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 		String password = txtPassword.getText().toString();
 		switch (keyCode) {
 		case SOFT_KEYBOARD_SUBMIT: {
-			//if submit is pressed check if it is valid, 
-			//post a message if it is not or
-			//set the settings and continue if it is
-			Twitter twitter = new Twitter(username, password);
+			// if submit is pressed check if it is valid,
+			// post a message if it is not or
+			// set the settings and continue if it is
+			// String auth = BasicAuthorization(username, password);
 			TextView validation = (TextView) findViewById(R.id.validation);
+			Twitter twitter = new TwitterFactory().getInstance(username,
+					password);
+			try {
+				twitter.verifyCredentials();
 
-			if (!twitter.isValidLogin()) {
-
-				validation.setText(selectRandomMessage());
-				InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-			} else {
 				Settings settings = Settings.getSettings();
 
 				settings.setUsername(username);
@@ -105,7 +105,14 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 						+ settings.getPassword());
 
 				finish();
+
+			} catch (TwitterException excep) {
+				validation.setText(selectRandomMessage());
+				InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
 			}
+
 			break;
 		}
 		case SOFT_KEYBOARD_CANCEL: {
@@ -150,13 +157,15 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 	}
 
 	/**
-	 * Helper method for selecting a random error message 
-	 * when invalid credentials are entered. 
-	 * @return a random message 
+	 * Helper method for selecting a random error message when invalid
+	 * credentials are entered.
+	 * 
+	 * @return a random message
 	 */
-	private CharSequence selectRandomMessage(){
-		
-		int index = (int)Math.round(Math.random() * invalid.length);
+	private CharSequence selectRandomMessage() {
+
+		int index = (int) Math.round(Math.random() * invalid.length);
 		return invalid[index];
 	}
+
 }

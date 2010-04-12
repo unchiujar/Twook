@@ -27,7 +27,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import winterwell.jtwitter.Twitter.Status;
+import twitter4j.Status;
+import twitter4j.User;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +62,7 @@ import com.nookdevs.common.nookBaseActivity;
  * @see PersonalTimelineActivity
  * @see PublicTimelineActivity
  * @see RepliesTimelineActivity
+ * @see RetweetsTimelineActivity
  * 
  */
 abstract public class TimelineActivity extends nookBaseActivity {
@@ -87,7 +89,13 @@ abstract public class TimelineActivity extends nookBaseActivity {
 	protected ImageButton btn_personal_timeline = null;
 	protected ImageButton btn_public_timeline = null;
 	protected ImageButton btn_settings = null;
+	protected ImageButton btn_retweets_timeline = null;
+	protected ImageButton btn_direct_messages_timeline = null;
+	protected ImageButton btn_followers = null;
+	protected ImageButton btn_followed = null;
+	protected ImageButton btn_home_timeline= null;
 
+	
 	Thread timelineThread;
 
 	/** Called when the activity is first created. */
@@ -103,6 +111,11 @@ abstract public class TimelineActivity extends nookBaseActivity {
 		btn_personal_timeline = (ImageButton) findViewById(R.id.personalTimeline);
 		btn_public_timeline = (ImageButton) findViewById(R.id.publicTimeline);
 		btn_settings = (ImageButton) findViewById(R.id.settings);
+		btn_retweets_timeline = (ImageButton) findViewById(R.id.retweets);
+		btn_direct_messages_timeline = (ImageButton) findViewById(R.id.direct);
+		btn_followers= (ImageButton) findViewById(R.id.followers);
+		btn_followed= (ImageButton) findViewById(R.id.following);
+		btn_home_timeline= (ImageButton) findViewById(R.id.home);
 
 		createDefaultListeners();
 		createListeners();
@@ -138,20 +151,15 @@ abstract public class TimelineActivity extends nookBaseActivity {
 		}
 	};
 
-	abstract protected List<Status> getTweets();
+	abstract protected List<Tweet> getTweets();
 
 	private void getTimeline() {
 		try {
 			retrievedTweets = new ArrayList<Tweet>();
-			List<Status> tweets = getTweets();
+			List<Tweet> tweets = getTweets();
 
-			for (Status status : tweets) {
-				Tweet message = new Tweet();
-				message.setMessage(status.getUser().getName() + " - "
-						+ status.getText());
-				message.setImage(downloadFile(status.getUser()
-						.getProfileImageUrl()));
-				retrievedTweets.add(message);
+			for (Tweet tweet : tweets) {
+				retrievedTweets.add(tweet);
 
 			}
 
@@ -179,16 +187,16 @@ abstract public class TimelineActivity extends nookBaseActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.single_tweet, null);
 			}
-			Tweet o = items.get(position);
-			if (o != null) {
+			Tweet tweet = items.get(position);
+			if (tweet != null) {
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				// TextView bt = (TextView) v.findViewById(R.id.bottomtext);
 				ImageView iv = (ImageView) v.findViewById(R.id.icon);
 				if (tt != null) {
-					tt.setText(o.getMessage());
+					tt.setText(tweet.getUsername()+" - "+tweet.getMessage());
 				}
 				if (iv != null) {
-					iv.setImageBitmap(o.getImage());
+					iv.setImageBitmap(tweet.getImage());
 				}
 			}
 			return v;
@@ -203,8 +211,12 @@ abstract public class TimelineActivity extends nookBaseActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return downloadFile(imageURL);
+	}
+	Bitmap downloadFile(URL fileURL) {
+
 		try {
-			HttpURLConnection conn = (HttpURLConnection) imageURL
+			HttpURLConnection conn = (HttpURLConnection) fileURL
 					.openConnection();
 			conn.setDoInput(true);
 			conn.connect();
@@ -290,6 +302,76 @@ abstract public class TimelineActivity extends nookBaseActivity {
 		Log.d(this.getClass().getName(),
 				"Personal timeline button listener set");
 
+		btn_retweets_timeline.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent settingsIntent = new Intent(v.getContext(),
+						RetweetsTimelineActivity.class);
+				startActivity(settingsIntent);
+				Log.d(this.getClass().getName(),
+						"Retweets timeline button clicked");
+
+			}
+		});
+		Log.d(this.getClass().getName(),
+				"Retweets timeline button listener set");
+
+		btn_direct_messages_timeline.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent settingsIntent = new Intent(v.getContext(),
+						DirectMessagesTimelineActivity.class);
+				startActivity(settingsIntent);
+				Log.d(this.getClass().getName(),
+						"Direct messages timeline button clicked");
+
+			}
+		});
+		Log.d(this.getClass().getName(),
+				"Direct messages timeline button listener set");
+
+		btn_followers.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent settingsIntent = new Intent(v.getContext(),
+						FollowersActivity.class);
+				startActivity(settingsIntent);
+				Log.d(this.getClass().getName(),
+						"Followers button clicked");
+
+			}
+		});
+		Log.d(this.getClass().getName(),
+				"Followers button listener set");
+
+		btn_followed.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent settingsIntent = new Intent(v.getContext(),
+						FollowingActivity.class);
+				startActivity(settingsIntent);
+				Log.d(this.getClass().getName(),
+						"Followed users button clicked");
+
+			}
+		});
+		Log.d(this.getClass().getName(),
+				"Followed users button listener set");
+
+		btn_home_timeline.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent settingsIntent = new Intent(v.getContext(),
+						HomeTimelineActivity.class);
+				startActivity(settingsIntent);
+				Log.d(this.getClass().getName(),
+						"Home timeline button clicked");
+
+			}
+		});
+		Log.d(this.getClass().getName(),
+				"Home timeline button listener set");
+
 	}
 
 	abstract protected void createListeners();
@@ -353,4 +435,42 @@ abstract public class TimelineActivity extends nookBaseActivity {
 			return false;
 		}
 	}
+	/**
+	 * Utility method used for transforming a List of 
+	 * Message or Status into a List of Tweet. 
+	 * 
+	 * @param messages a List of classes implementinf ITweet
+	 * @return a List of Tweet to be used with the TweetAdapter
+	 */
+	protected List<Tweet> statusToTweets(List<Status> messages){
+		List<Tweet> tweets = new ArrayList<Tweet>();
+		for (Status message : messages) {
+			Tweet tweet =   new Tweet();
+			tweet.setUsername(message.getUser().getName());
+			tweet.setMessage(message.getText());
+			tweet.setImage(downloadFile(message.getUser().getProfileImageURL()));
+			tweets.add(tweet);
+		}
+		return tweets;
+	}
+	
+//	/**
+//	 * Utility method used for transforming a List of User
+//	 * into a list of Tweet.
+//	 * 
+//	 * @param users
+//	 * @return a List of Tweet to be used with the TweetAdapter
+//	 */
+//	protected List<Tweet> userToTweets(List<User> users){
+//		List<Tweet> tweets = new ArrayList<Tweet>();
+//		for (User user : users) {
+//			Tweet tweet =   new Tweet();
+//			tweet.setMessage(user.getStatus().getText());
+//			tweet.setImage(downloadFile(user.getProfileImageUrl()));
+//			tweet.setUsername(user.getName());
+//			tweets.add(tweet);
+//			Log.d(this.getClass().getName(), "tweet " + tweet.getMessage());
+//		}
+//		return tweets;
+//	}
 }

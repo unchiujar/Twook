@@ -21,17 +21,18 @@ package com.nookdevs.twook;
 
 import java.util.List;
 
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import winterwell.jtwitter.Twitter;
-import winterwell.jtwitter.Twitter.Status;
-
 /**
  * 
- * Activity that displays the home timeline of the user. 
+ * Activity that displays the last tweets of the user. 
  *  
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
@@ -48,10 +49,20 @@ public class PersonalTimelineActivity extends TimelineActivity {
 		updateView("Retrieving personal timeline");
 	}
 	@Override
-	protected List<Status> getTweets() {
+	protected List<Tweet> getTweets() {
 		Settings settings = Settings.getSettings();
-		Twitter twitter = new Twitter(settings.getUsername(), settings.getPassword());
-		return twitter.getUserTimeline();
+		Twitter twitter = new TwitterFactory().getInstance(settings.getUsername(),
+				settings.getPassword());
+	    List<Status> statuses;
+		try {
+			statuses = twitter.getUserTimeline();
+		    return statusToTweets(statuses);
+
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	@Override
 	protected void createListeners() {
