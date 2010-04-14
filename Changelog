@@ -1,3 +1,8 @@
+2010-04-14 Vasile Jureschi  <vasile.jureschi@gmail.com>
+	* tried to fix the followers/followed timeline, twitter4j seems to be buggy, followed works
+	* change some message prompts on progress dialogs
+	* changed class Following to Followed
+	
 2010-04-13 Vasile Jureschi  <vasile.jureschi@gmail.com>
 	* added description of the current timeline in the title
 	* fixed following and followers buttons - however functionality still not working properly 

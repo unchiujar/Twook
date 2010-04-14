@@ -58,22 +58,26 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 
 public class SearchActivity extends TimelineActivity {
 	String searchTerm = "nook";
-	private TextListener softKeyListener = new TextListener(this);
+	private TextEditListener softKeyListener = new TextEditListener(this);
+	private ListListener listListener = new ListListener(this);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search);
 		btn_search_test = (ImageButton) findViewById(R.id.search1);
-		
-		//this is needed because we load a different layout
-		//so the listeners have to reinitialized
+
+		// this is needed because we load a different layout
+		// so the listeners have to reinitialized
 		createListeners();
 		// set the title at the top of the eink screen
 		Resources res = getResources();
-		NAME = "SEARCH - WORK IN PROGRESS";
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.search).toString();
 		ListView list = (ListView) findViewById(android.R.id.list);
 		list.requestFocus();
+		list.setOnKeyListener(listListener);
 		EditText tweet = (EditText) findViewById(R.id.search_term);
 		tweet.setOnKeyListener(softKeyListener);
 	}
@@ -133,10 +137,10 @@ public class SearchActivity extends TimelineActivity {
 		});
 	}
 
-	class TextListener implements OnKeyListener {
+	class TextEditListener implements OnKeyListener {
 		private SearchActivity settings;
 
-		public TextListener(SearchActivity settings) {
+		public TextEditListener(SearchActivity settings) {
 			this.settings = settings;
 		}
 
@@ -159,5 +163,6 @@ public class SearchActivity extends TimelineActivity {
 			return true;
 		}
 	}
+	
 
 }

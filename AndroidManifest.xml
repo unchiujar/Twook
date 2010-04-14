@@ -38,7 +38,7 @@ This file is part of the Twook project (**linky**).
 <activity android:name="RetweetsTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="DirectMessagesTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="FollowersActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
-<activity android:name="FollowingActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="FollowedActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="HomeTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="SearchActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 

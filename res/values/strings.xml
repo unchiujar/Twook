@@ -41,7 +41,8 @@
 	<string name="tweet_title">Set Status</string>
 	<string name="settings_title">Settings</string>
 	<string name="followers_timeline">Followers</string>
-	<string name="followed_timeline">Following</string>
+	<string name="followed_timeline">Followed</string>
+	<string name="search">Search</string>
 
 
 	<string name="title_separator">&#160;-&#160;</string>

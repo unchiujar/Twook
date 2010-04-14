@@ -51,7 +51,7 @@ public class PersonalTimelineActivity extends TimelineActivity {
 		NAME = res.getText(R.string.app_name).toString()
 				+ res.getText(R.string.title_separator).toString()
 				+ res.getText(R.string.personal_timeline).toString();
-		updateView("Retrieving personal timeline");		
+		updateView("Let's see what you said...");		
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class PersonalTimelineActivity extends TimelineActivity {
 
 			@Override
 			public void onClick(View v) {
-				updateView("Retrieving personal timeline");
+				updateView("Let's see what you said...");
 				Log.d(this.getClass().getName(),
 						"Personal timeline button clicked");
 
