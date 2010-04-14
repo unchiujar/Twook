@@ -25,6 +25,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +48,11 @@ public class RepliesTimelineActivity extends TimelineActivity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		updateView("Retrieving replies timeline");
+		//set the title at the top of the eink screen 
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.replies_timeline).toString();
 	}
 	@Override
 	protected List<Tweet> getTweets() {

@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--***********************************************
-This file is part of the Twook project (**linky**).
+	<!--
+		*********************************************** This file is part of
+		the Twook project (**linky**). Twook is free software: you can
+		redistribute it and/or modify it under the terms of the GNU General
+		Public License as published by the Free Software Foundation, either
+		version 3 of the License, or (at your option) any later version. Twook
+		is distributed in the hope that it will be useful, but WITHOUT ANY
+		WARRANTY; without even the implied warranty of MERCHANTABILITY or
+		FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+		for more details. You should have received a copy of the GNU General
+		Public License along with Twook. If not, see
+		<http://www.gnu.org/licenses/>.
 
-    Twook is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Twook is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Twook.  If not, see <http://www.gnu.org/licenses/>.
-
-**********************************************-->
+		**********************************************
+	-->
 
 <resources>
-    <string name="guni_gugu">Guni Gugu</string>
-     
-    <string-array name="invalid_credentials">
+	<string name="guni_gugu">Guni Gugu</string>
+
+	<string-array name="invalid_credentials">
 		<item>You do know they have pills for that, don't you ?</item>
 		<item>Granpa, is that you ?</item>
-		<item>Stop right now and go buy a pack of PostIt notes before you forget all your passwords</item>
+		<item>Stop right now and go buy a pack of PostIt notes before you
+			forget all your passwords</item>
 		<item>PEBKAC</item>
 		<item>DO NOT get a job in which you have to enter passwords...</item>
-		<item>Nope, you better start writing your passwords down from now on...</item>
-		<item>I forgot what the error message was, you know how that is, don't you ?</item>
-    </string-array>
-     <string name="app_name">Twook</string>
-    
+		<item>Nope, you better start writing your passwords down from now
+			on...</item>
+		<item>I forgot what the error message was, you know how that is,
+			don&apos;t you ?</item>
+	</string-array>
+
+	<string name="app_name">Twook</string>
+	<string name="direct_messages">Direct Messages</string>
+	<string name="home_timeline">Home Timeline</string>
+	<string name="public_timeline">Public Timeline</string>
+	<string name="personal_timeline">Personal Timeline</string>
+	<string name="replies_timeline">Replies Timeline</string>
+	<string name="retweets_timeline">Retweets Timeline</string>
+	<string name="tweet_title">Set Status</string>
+	<string name="settings_title">Settings</string>
+	<string name="followers_timeline">Followers</string>
+	<string name="followed_timeline">Following</string>
+
+
+	<string name="title_separator">&#160;-&#160;</string>
+
 </resources>

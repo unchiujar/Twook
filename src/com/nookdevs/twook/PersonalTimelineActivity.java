@@ -14,10 +14,9 @@ This file is part of the Twook project (**linky**).
     You should have received a copy of the GNU General Public License
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 
 package com.nookdevs.twook;
-
 
 import java.util.List;
 
@@ -25,6 +24,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,8 +32,8 @@ import android.view.View.OnClickListener;
 
 /**
  * 
- * Activity that displays the last tweets of the user. 
- *  
+ * Activity that displays the last tweets of the user.
+ * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
@@ -42,21 +42,27 @@ import android.view.View.OnClickListener;
  * 
  */
 public class PersonalTimelineActivity extends TimelineActivity {
-	
+
 	@Override
-	public void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		updateView("Retrieving personal timeline");
+		//set the title at the top of the eink screen 
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.personal_timeline).toString();
+		updateView("Retrieving personal timeline");		
 	}
+
 	@Override
 	protected List<Tweet> getTweets() {
 		Settings settings = Settings.getSettings();
-		Twitter twitter = new TwitterFactory().getInstance(settings.getUsername(),
-				settings.getPassword());
-	    List<Status> statuses;
+		Twitter twitter = new TwitterFactory().getInstance(settings
+				.getUsername(), settings.getPassword());
+		List<Status> statuses;
 		try {
 			statuses = twitter.getUserTimeline();
-		    return statusToTweets(statuses);
+			return statusToTweets(statuses);
 
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
@@ -64,6 +70,7 @@ public class PersonalTimelineActivity extends TimelineActivity {
 		}
 		return null;
 	}
+
 	@Override
 	protected void createListeners() {
 		btn_personal_timeline.setOnClickListener(new OnClickListener() {
@@ -71,10 +78,11 @@ public class PersonalTimelineActivity extends TimelineActivity {
 			@Override
 			public void onClick(View v) {
 				updateView("Retrieving personal timeline");
-				Log.d(this.getClass().getName(),"Personal timeline button clicked");
-				
+				Log.d(this.getClass().getName(),
+						"Personal timeline button clicked");
+
 			}
 		});
-		
+
 	}
 }

@@ -94,6 +94,7 @@ abstract public class TimelineActivity extends nookBaseActivity {
 	protected ImageButton btn_followers = null;
 	protected ImageButton btn_followed = null;
 	protected ImageButton btn_home_timeline= null;
+	protected ImageButton btn_search_test= null;
 
 	
 	Thread timelineThread;
@@ -104,19 +105,7 @@ abstract public class TimelineActivity extends nookBaseActivity {
 		super.onCreate(savedInstanceState);
 		NAME = "Twook";
 
-		setContentView(R.layout.main);
-
-		btn_tweet = (ImageButton) findViewById(R.id.tweet);
-		btn_replies_timeline = (ImageButton) findViewById(R.id.replies);
-		btn_personal_timeline = (ImageButton) findViewById(R.id.personalTimeline);
-		btn_public_timeline = (ImageButton) findViewById(R.id.publicTimeline);
-		btn_settings = (ImageButton) findViewById(R.id.settings);
-		btn_retweets_timeline = (ImageButton) findViewById(R.id.retweets);
-		btn_direct_messages_timeline = (ImageButton) findViewById(R.id.direct);
-		btn_followers= (ImageButton) findViewById(R.id.followers);
-		btn_followed= (ImageButton) findViewById(R.id.following);
-		btn_home_timeline= (ImageButton) findViewById(R.id.home);
-
+		setContentView(R.layout.main);		
 		createDefaultListeners();
 		createListeners();
 		retrievedTweets = new ArrayList<Tweet>();
@@ -233,7 +222,20 @@ abstract public class TimelineActivity extends nookBaseActivity {
 	}
 
 	// =================== Button listeners =======================
-	private void createDefaultListeners() {
+	protected void createDefaultListeners() {
+		
+		btn_tweet = (ImageButton) findViewById(R.id.tweet);
+		btn_replies_timeline = (ImageButton) findViewById(R.id.replies);
+		btn_personal_timeline = (ImageButton) findViewById(R.id.personalTimeline);
+		btn_public_timeline = (ImageButton) findViewById(R.id.publicTimeline);
+		btn_settings = (ImageButton) findViewById(R.id.settings);
+		btn_retweets_timeline = (ImageButton) findViewById(R.id.retweets);
+		btn_direct_messages_timeline = (ImageButton) findViewById(R.id.direct);
+		btn_followers= (ImageButton) findViewById(R.id.followers);
+		btn_followed= (ImageButton) findViewById(R.id.following);
+		btn_home_timeline= (ImageButton) findViewById(R.id.home);
+		btn_search_test = (ImageButton) findViewById(R.id.search1);
+		
 		btn_tweet.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -371,6 +373,22 @@ abstract public class TimelineActivity extends nookBaseActivity {
 		});
 		Log.d(this.getClass().getName(),
 				"Home timeline button listener set");
+		
+		
+
+		btn_search_test.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent settingsIntent = new Intent(v.getContext(),
+						SearchActivity.class);
+				startActivity(settingsIntent);
+				Log.d(this.getClass().getName(),
+						"Search button clicked");
+
+			}
+		});
+		Log.d(this.getClass().getName(),
+				"Search button listener set");
 
 	}
 

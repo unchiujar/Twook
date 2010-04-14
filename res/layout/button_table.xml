@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--
+		*********************************************** This file is part of
+		the Twook project (**linky**). Twook is free software: you can
+		redistribute it and/or modify it under the terms of the GNU General
+		Public License as published by the Free Software Foundation, either
+		version 3 of the License, or (at your option) any later version. Twook
+		is distributed in the hope that it will be useful, but WITHOUT ANY
+		WARRANTY; without even the implied warranty of MERCHANTABILITY or
+		FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+		for more details. You should have received a copy of the GNU General
+		Public License along with Twook. If not, see
+		<http://www.gnu.org/licenses/>.
+
+		**********************************************
+	-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" android:background="#FFFFFFFF"
+	android:textColor="#000000">
+
+	<TableLayout android:id="@+id/TableLayout01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_margin="0px">
+		<TableRow android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/personal">
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/tweet"
+				android:src="@drawable/tweet_button"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/replies"
+				android:src="@drawable/replies_button"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/personalTimeline"
+				android:src="@drawable/personal"></ImageButton>
+
+
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/home"
+				android:src="@drawable/home"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/retweets"
+				android:src="@drawable/retweets"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/direct"
+				android:src="@drawable/direct"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/followers"
+				android:src="@drawable/icon"></ImageButton>
+
+
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/following"
+				android:src="@drawable/icon"></ImageButton>
+
+
+
+		</TableRow>
+		<TableRow android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/searches"
+			android:padding="0px" android:layout_margin="0px">
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/publicTimeline"
+				android:src="@drawable/public_timeline_button"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/featured"
+				android:src="@drawable/icon" android:layout_margin="0px"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/findpeople"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/search1" android:src="@drawable/question"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/search2"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/search3"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/favorite"
+				android:src="@drawable/icon" android:layout_margin="0px"></ImageButton>
+		</TableRow>
+		<TableRow android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/tweet_actions"
+			android:padding="0px" android:layout_margin="0px">
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/follow"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/favour"></ImageButton>
+
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/retweet"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/block"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/userinfo"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/direct_message"></ImageButton>
+			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/settings"
+				android:src="@drawable/settings_button"></ImageButton>
+		</TableRow>
+	</TableLayout>
+</LinearLayout>

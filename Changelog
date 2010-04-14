@@ -1,4 +1,13 @@
 2010-04-13 Vasile Jureschi  <vasile.jureschi@gmail.com>
+	* added description of the current timeline in the title
+	* fixed following and followers buttons - however functionality still not working properly 
+	* update application icon from Kyled and added license notice
+	* fixed a minor problem with the text in strings, an apostrophe was not displayed
+	* add an example search button with functionality, more to come BUGGY
+	* added a search layout with a search text edit at the bottom
+	
+	
+2010-04-13 Vasile Jureschi  <vasile.jureschi@gmail.com>
 		
 		* switched to using twitter4j
 		* added application icon for Kyled

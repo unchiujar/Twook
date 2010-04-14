@@ -1,15 +1,15 @@
+ Usability Urgent - save username and password so it doesn't need to be entered 
+ add a checkbox to select the option
+ 
+ 
  Add support for selecting individual tweets
 	* follow/unfollow button depending on the following status of the user selected
 	* retweet button
 	* direct message button
 	* selected user information (tweets sent, account info)
 	* favorite
-List direct messages
 List favorite tweets
 List featured users with current tweets
-List followers
-List friends
-List retweets 
 Customized search buttons
 
 

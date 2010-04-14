@@ -23,6 +23,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -51,19 +52,22 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 	private final int TWEET_LENGTH = 140;
 	Thread postTweetThread;
 	private Runnable postTweet;
-	private TextListener m_TextListener = new TextListener(this);
+	private TextListener softKeyListener = new TextListener(this);
 	int left;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		NAME = "Twook";
-
+		//set the title at the top of the eink screen 
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.tweet_title).toString();
 		setContentView(R.layout.write_tweet);
 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 		EditText tweet = (EditText) findViewById(R.id.tweet_message);
-		tweet.setOnKeyListener(m_TextListener);
+		tweet.setOnKeyListener(softKeyListener);
 
 		postTweet = new Runnable() {
 			@Override

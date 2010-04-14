@@ -18,6 +18,9 @@ This file is part of the Twook project (**linky**).
 
 package com.nookdevs.twook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
  * Singleton class holding the password and username. 
@@ -34,6 +37,7 @@ package com.nookdevs.twook;
 public class Settings {
 	String username;
 	String password;
+	List<String> searches = new ArrayList<String>();
 	int refresh;
 	private static Settings settings;
 
@@ -41,6 +45,8 @@ public class Settings {
 		username = "";
 		password = "";
 		refresh = 5;
+		searches.add("nook");
+		searches.add("twook");
 	};
 
 	public static synchronized Settings getSettings() {

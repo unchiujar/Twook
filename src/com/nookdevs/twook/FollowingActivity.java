@@ -19,12 +19,16 @@ This file is part of the Twook project (**linky**).
 package com.nookdevs.twook;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import twitter4j.PagableResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,16 +52,26 @@ public class FollowingActivity extends TimelineActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		updateView("WORK IN PROGRESS");
+		updateView("Retrieving followed users...");
 	}
 	@Override
 	protected List<Tweet> getTweets() {
 		Settings settings = Settings.getSettings();
+		//set the title at the top of the eink screen 
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+		+ res.getText(R.string.title_separator).toString()
+		+ res.getText(R.string.followed_timeline).toString();
+
 		Twitter twitter = new TwitterFactory().getInstance(settings.getUsername(),
 				settings.getPassword());
-	    List<Status> statuses;
+	    List<Status> statuses = new ArrayList<Status>();
 		try {
-			statuses = twitter.getFriendsTimeline();
+			 PagableResponseList<User> following = twitter.getFriendsStatuses();
+			 
+			 for (User user : following) {
+				 statuses.add(user.getStatus());
+			}
 		    return statusToTweets(statuses);
 
 		} catch (TwitterException e) {
@@ -72,7 +86,7 @@ public class FollowingActivity extends TimelineActivity {
 
 			@Override
 			public void onClick(View v) {
-				updateView("WORK IN PROGRESS");
+				updateView("Retrieving followed users...");
 				Log.d(this.getClass().getName(),"Followed button clicked");
 				
 			}

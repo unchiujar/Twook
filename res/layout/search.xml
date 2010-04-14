@@ -16,17 +16,19 @@
 	-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="#FFFFFFFF"
-	android:textColor="#000000">
+	android:layout_width="fill_parent" android:orientation="vertical"
+	android:layout_height="fill_parent" android:background="#FFFFFFFF">
 	<!-- this Frame is used merely to block out the eink-display -->
 
-	<ListView android:layout_height="760px" android:layout_width="fill_parent"
+	<ListView android:layout_height="700px" android:layout_width="fill_parent"
 		android:background="#FFFFFFFF" android:textColor="#000000" android:id="@+id/android:list"
 		android:fastScrollEnabled="true" android:cacheColorHint="#00000000"
 		android:scrollingCache="true">
 	</ListView>
+	<EditText android:layout_width="wrap_content"
+		android:layout_height="60px" android:hint="Enter search terms"
+		android:inputType="text" android:width="600px" android:id="@+id/search_term"
+		android:textColor="#000000"></EditText>
 
-	<include android:id="@+id/cell1" layout="@layout/button_table" />
-
+    <include android:id="@+id/cell1" layout="@layout/button_table" />
 </LinearLayout>

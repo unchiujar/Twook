@@ -53,9 +53,12 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		NAME = "Twook";
-
+		// set the title at the top of the eink screen
 		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.settings_title).toString();
+		// get ,essages for invalid credentials from strings
 		invalid = res.getTextArray(R.array.invalid_credentials);
 		setContentView(R.layout.settings);
 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
