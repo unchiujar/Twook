@@ -19,8 +19,8 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  <selector xmlns:android="http://schemas.android.com/apk/res/android">
      <item android:state_pressed="true"
-           android:drawable="@drawable/personal" /> <!-- pressed -->
+           android:drawable="@drawable/twookicondown" /> <!-- pressed -->
      <item android:state_focused="true"
-           android:drawable="@drawable/personal" /> <!-- focused -->
-     <item android:drawable="@drawable/personal" /> <!-- default --> 
+           android:drawable="@drawable/twookicondown" /> <!-- focused -->
+     <item android:drawable="@drawable/twookicon" /> <!-- default -->
  </selector>

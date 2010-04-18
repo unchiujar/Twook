@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,11 +18,9 @@ This file is part of the Twook project (**linky**).
 
 package com.nookdevs.twook;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.PagableResponseList;
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -38,7 +36,7 @@ import android.view.View.OnClickListener;
  * Activity that displays the latest statuses of the users followed by the
  * authenticated user. Displays the latest 100 users followed.
  * 
- * @author Vasile Jureschi <vasile.jureschi@gmail.com>
+ * @author=Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
  * 

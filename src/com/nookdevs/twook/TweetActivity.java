@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,11 +14,10 @@ This file is part of the Twook project (**linky**).
     You should have received a copy of the GNU General Public License
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 
 package com.nookdevs.twook;
 
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -37,16 +36,17 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 
 /**
  * 
- * Activity that prompts the user to enter a tweet. 
- *  
- *  
+ * Activity that prompts the user to enter a tweet.
+ * 
+ * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
  * 
  * @see Settings
  * 
- */public class TweetActivity extends nookBaseSimpleActivity {
+ */
+public class TweetActivity extends nookBaseSimpleActivity {
 	private ProgressDialog postProgress = null;
 	private final int WAIT_TIME = 200;
 	private final int TWEET_LENGTH = 140;
@@ -58,7 +58,7 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//set the title at the top of the eink screen 
+		// set the title at the top of the eink screen
 		Resources res = getResources();
 		NAME = res.getText(R.string.app_name).toString()
 				+ res.getText(R.string.title_separator).toString()
@@ -85,18 +85,18 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 			String tweet = tweetEdit.getText().toString();
 
 			// The factory instance is re-useable and thread safe.
-		    Twitter twitter = new TwitterFactory().getInstance(settings.getUsername(),
-		    		settings.getPassword());
-		    twitter.updateStatus(tweet);
+			Twitter twitter = new TwitterFactory().getInstance(settings
+					.getUsername(), settings.getPassword());
+			twitter.updateStatus(tweet);
 			Thread.sleep(WAIT_TIME);
 		} catch (InterruptedException excep) {
 			Log.e(this.getClass().getName(), "Thread has been interrupted "
 					+ excep.getMessage());
-		} catch(TwitterException excep){
+		} catch (TwitterException excep) {
 			Log.e(this.getClass().getName(), "Twitter exception"
-					+ excep.getMessage());	
+					+ excep.getMessage());
 		}
-		
+
 	}
 
 	private void processCmd(int keyCode) {
@@ -115,7 +115,7 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 						"Please wait...", "Updating status...", true);
 
 				Log.d(this.getClass().getName(), "Tweet posted");
-				finish();                
+				finish();
 			} else {
 				TextView tweetLength = (TextView) findViewById(R.id.tweet_length);
 				tweetLength.setText("Remove " + Math.abs(left)
@@ -146,10 +146,11 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 					if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) { // Clear
 						editTxt.setText("");
 					} else {
-						// calculate the length of the text entered 
+						// calculate the length of the text entered
 						// and display the remaining number of characters
 						TextView tweetLength = (TextView) findViewById(R.id.tweet_length);
-						left = TWEET_LENGTH - editTxt.getText().toString().length();
+						left = TWEET_LENGTH
+								- editTxt.getText().toString().length();
 						tweetLength.setText("Characters remaining " + left);
 						settings.processCmd(keyCode);
 					}

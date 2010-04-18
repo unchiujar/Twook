@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,51 +14,68 @@ This file is part of the Twook project (**linky**).
     You should have received a copy of the GNU General Public License
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 
 package com.nookdevs.twook;
 
 import android.graphics.Bitmap;
 
 /**
+ * Very simple wrapper for a tweet. Contains the message and the user icon.
  * 
- * Very simple wrapper for a tweet. Contains the message and the
- * user icon.  
- *  
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
- * 
  * @see TimelineActivity
- * 
  */
 public class Tweet {
-	private String message;
-	private Bitmap image;
-	private String username;
+    /** The status message. */
+    private String message;
+    /** The status icon of the user  */
+    private Bitmap image;
+    /** The name of the user who posted this tweet. */
+    private String username;
 
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * @return The name of the user who posted this tweet.
+     */
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /**
+     * @param username the name of the user that posted this tweet
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public Bitmap getImage() {
-		return image;
-	}
+    /**
+     * @return the image of the user who posted the tweet
+     */
+    public Bitmap getImage() {
+        return image;
+    }
 
-	public void setImage(Bitmap image) {
-		this.image = image;
-	}
+    /**
+     * @param image the image of the user who posted the tweet
+     */
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    /**
+     * @return the status message (tweet)
+     */
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    /**
+     * @param message 
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 }

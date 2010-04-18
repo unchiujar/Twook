@@ -1,3 +1,11 @@
+2010-04-17 Vasile Jureschi  <vasile.jureschi@gmail.com>
+	* added all the button images for the first and second row
+	* changed the tweet button to a large button on the left that displays
+	  the user avatar when the user is authenticated
+    * added 4 search buttons that can be customized individually
+    * added favorite tweet search
+    * added people search - only displays names due to a twitter4j bug
+
 2010-04-14 Vasile Jureschi  <vasile.jureschi@gmail.com>
 	* tried to fix the followers/followed timeline, twitter4j seems to be buggy, followed works
 	* change some message prompts on progress dialogs

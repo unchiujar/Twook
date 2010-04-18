@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,18 +14,20 @@ This file is part of the Twook project (**linky**).
     You should have received a copy of the GNU General Public License
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 
 package com.nookdevs.twook;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Bitmap;
+
 /**
  * 
- * Singleton class holding the password and username. 
- *  
- *  
+ * Singleton class holding the password and username.
+ * 
+ * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
@@ -41,7 +43,17 @@ public class Settings {
 	int refresh;
 	private static Settings settings;
 
-	private Settings() {
+	private Bitmap icon;
+	
+	public Bitmap getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Bitmap icon) {
+        this.icon = icon;
+    }
+
+    private Settings() {
 		username = "";
 		password = "";
 		refresh = 5;
@@ -56,12 +68,10 @@ public class Settings {
 		return settings;
 	}
 
-	
 	public Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException();
 	}
-	
-	
+
 	public String getUsername() {
 		return username;
 	}

@@ -32,7 +32,7 @@ import android.view.View.OnClickListener;
 
 /**
  * 
- * Activity that displays the retweets of the user's messages.
+ * Activity that displays the favorite tweets for the authenticated user.
  * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
@@ -41,48 +41,48 @@ import android.view.View.OnClickListener;
  * @see TimelineActivity
  * 
  */
-public class RetweetsTimelineActivity extends TimelineActivity {
+public class FavoriteTimelineActivity extends TimelineActivity {
+    private static final String MESSAGE = "Finding the ones you love...";
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// set the title at the top of the eink screen
-		Resources res = getResources();
-		NAME = res.getText(R.string.app_name).toString()
-				+ res.getText(R.string.title_separator).toString()
-				+ res.getText(R.string.retweets_timeline).toString();
-		updateView("Retrieving retweets timeline");
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	// set the title at the top of the eink screen
+	Resources res = getResources();
+	NAME = res.getText(R.string.app_name).toString()
+		+ res.getText(R.string.title_separator).toString()
+		+ res.getText(R.string.favorites_timeline).toString();
+	updateView(MESSAGE);
+    }
+
+    @Override
+    protected List<Tweet> getTweets() {
+	Settings settings = Settings.getSettings();
+	Twitter twitter = new TwitterFactory().getInstance(settings
+		.getUsername(), settings.getPassword());
+	List<Status> statuses;
+	try {
+	    statuses = twitter.getFavorites();
+	    return statusToTweets(statuses);
+
+	} catch (TwitterException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
+	return null;
+    }
 
-	@Override
-	protected List<Tweet> getTweets() {
-		Settings settings = Settings.getSettings();
-		Twitter twitter = new TwitterFactory().getInstance(settings
-				.getUsername(), settings.getPassword());
-		List<Status> statuses;
-		try {
-			statuses = twitter.getRetweetsOfMe();
-			return statusToTweets(statuses);
+    @Override
+    protected void createListeners() {
+	btn_favorites.setOnClickListener(new OnClickListener() {
 
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+	    @Override
+	    public void onClick(View v) {
+		updateView(MESSAGE);
+		Log.d(this.getClass().getName(), "Favorites button clicked");
 
-	@Override
-	protected void createListeners() {
-		btn_retweets_timeline.setOnClickListener(new OnClickListener() {
+	    }
+	});
 
-			@Override
-			public void onClick(View v) {
-				updateView("Retrieving retweets timeline");
-				Log.d(this.getClass().getName(),
-						"Retweets timeline button clicked");
-
-			}
-		});
-
-	}
+    }
 }

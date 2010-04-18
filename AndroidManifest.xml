@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@ This file is part of the Twook project (**linky**).
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.nookdevs.twook"
-      android:versionCode="3" android:versionName="0.0.3.2">
-    <application android:label="@string/app_name" android:icon="@drawable/twookicon">
+      android:versionCode="4" android:versionName="0.0.4">
+    <application android:label="@string/app_name" android:icon="@drawable/twook_button">
         <activity android:name=".PublicTimelineActivity"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar">
@@ -41,6 +41,8 @@ This file is part of the Twook project (**linky**).
 <activity android:name="FollowedActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="HomeTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 <activity android:name="SearchActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="FavoriteTimelineActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
+<activity android:name="UserSearchActivity" android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name"></activity>
 
 
 </application>

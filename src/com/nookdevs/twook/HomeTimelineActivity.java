@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,10 +14,9 @@ This file is part of the Twook project (**linky**).
     You should have received a copy of the GNU General Public License
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
-**********************************************/
+ **********************************************/
 
 package com.nookdevs.twook;
-
 
 import java.util.List;
 
@@ -33,9 +32,8 @@ import android.view.View.OnClickListener;
 
 /**
  * 
- * Activity that displays the home timeline for the
- * authenticated user. 
- *  
+ * Activity that displays the home timeline for the authenticated user.
+ * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
@@ -44,26 +42,27 @@ import android.view.View.OnClickListener;
  * 
  */
 public class HomeTimelineActivity extends TimelineActivity {
-	
+
 	@Override
-	public void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//set the title at the top of the eink screen 
+		// set the title at the top of the eink screen
 		Resources res = getResources();
 		NAME = res.getText(R.string.app_name).toString()
 				+ res.getText(R.string.title_separator).toString()
 				+ res.getText(R.string.home_timeline).toString();
 		updateView("Retrieving home timeline");
 	}
+
 	@Override
 	protected List<Tweet> getTweets() {
 		Settings settings = Settings.getSettings();
-		Twitter twitter = new TwitterFactory().getInstance(settings.getUsername(),
-				settings.getPassword());
-	    List<Status> statuses;
+		Twitter twitter = new TwitterFactory().getInstance(settings
+				.getUsername(), settings.getPassword());
+		List<Status> statuses;
 		try {
 			statuses = twitter.getHomeTimeline();
-		    return statusToTweets(statuses);
+			return statusToTweets(statuses);
 
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
@@ -71,6 +70,7 @@ public class HomeTimelineActivity extends TimelineActivity {
 		}
 		return null;
 	}
+
 	@Override
 	protected void createListeners() {
 		btn_home_timeline.setOnClickListener(new OnClickListener() {
@@ -78,10 +78,12 @@ public class HomeTimelineActivity extends TimelineActivity {
 			@Override
 			public void onClick(View v) {
 				updateView("Retrieving home timeline");
-				Log.d(this.getClass().getName(),"Home timeline button clicked");
-				
+				Log
+						.d(this.getClass().getName(),
+								"Home timeline button clicked");
+
 			}
 		});
-		
+
 	}
 }

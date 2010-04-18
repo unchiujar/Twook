@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,147 +28,152 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nookdevs.common.nookBaseSimpleActivity;
+import com.nookdevs.twook.R.id;
 
 /**
- * 
  * Activity that prompts the user to enter a username and password.
- * 
  * 
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * @version 0.0.2
  * @since 0.0.2
- * 
  * @see Settings
- * 
  */
 public class SettingsActivity extends nookBaseSimpleActivity {
 
-	private TextListener credentialsListener = new TextListener(this);
-	/** Holds the messages displayed when the entered credentials are invalid. */
-	CharSequence[] invalid;
+    private TextListener   credentialsListener = new TextListener(this);
+    /** Holds the messages displayed when the entered credentials are invalid. */
+    private CharSequence[] invalid;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// set the title at the top of the eink screen
-		Resources res = getResources();
-		NAME = res.getText(R.string.app_name).toString()
-				+ res.getText(R.string.title_separator).toString()
-				+ res.getText(R.string.settings_title).toString();
-		// get ,essages for invalid credentials from strings
-		invalid = res.getTextArray(R.array.invalid_credentials);
-		setContentView(R.layout.settings);
-		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-		EditText username = (EditText) findViewById(R.id.username);
-		EditText password = (EditText) findViewById(R.id.password);
-		username.setOnKeyListener(credentialsListener);
-		password.setOnKeyListener(credentialsListener);
+    private EditText       txtUsername;
+    private EditText       txtPassword;
 
-		Settings settings = Settings.getSettings();
-		username.setText(settings.getUsername());
-		password.setText(settings.getPassword());
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // set the title at the top of the eink screen
+        final Resources res = getResources();
+        NAME =
+                res.getText(R.string.app_name).toString()
+                        + res.getText(R.string.title_separator).toString()
+                        + res.getText(R.string.settings_title).toString();
+        // get ,essages for invalid credentials from strings
+        invalid = res.getTextArray(R.array.invalid_credentials);
+        setContentView(R.layout.settings);
+        final InputMethodManager imm =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        // get the buttons
+        txtUsername = (EditText) findViewById(R.id.username);
+        txtPassword = (EditText) findViewById(R.id.password);
+        // set listeners
+        txtUsername.setOnKeyListener(credentialsListener);
+        txtPassword.setOnKeyListener(credentialsListener);
+        // set credentials from Settings
+        final Settings settings = Settings.getSettings();
+        txtUsername.setText(settings.getUsername());
+        txtPassword.setText(settings.getPassword());
+    }
 
-	/**
-	 * Helper method used for processing events recieved from the soft keyboard.
-	 * 
-	 * @param keyCode
-	 *            the keyCode received from the soft keyboard
-	 * @see nookBaseSimpleActivity
-	 */
-	private void processCmd(int keyCode) {
-		EditText txtUsername = (EditText) findViewById(R.id.username);
-		EditText txtPassword = (EditText) findViewById(R.id.password);
-		String username = txtUsername.getText().toString();
-		String password = txtPassword.getText().toString();
-		switch (keyCode) {
-		case SOFT_KEYBOARD_SUBMIT: {
-			// if submit is pressed check if it is valid,
-			// post a message if it is not or
-			// set the settings and continue if it is
-			// String auth = BasicAuthorization(username, password);
-			TextView validation = (TextView) findViewById(R.id.validation);
-			Twitter twitter = new TwitterFactory().getInstance(username,
-					password);
-			try {
-				twitter.verifyCredentials();
+    /**
+     * Helper method used for processing events recieved from the soft keyboard.
+     * 
+     * @param keyCode
+     *            the keyCode received from the soft keyboard
+     * @see nookBaseSimpleActivity
+     */
+    private void processCmd(int keyCode) {
+        final String username = txtUsername.getText().toString();
+        final String password = txtPassword.getText().toString();
+        switch (keyCode) {
+        case SOFT_KEYBOARD_SUBMIT: {
+            // if submit is pressed check if it is valid,
+            // post a message if it is not or
+            // set the settings and continue if it is
+            // String auth = BasicAuthorization(username, password);
+            TextView validation = (TextView) findViewById(R.id.validation);
+            Twitter twitter =
+                    new TwitterFactory().getInstance(username, password);
+            try {
+                twitter.verifyCredentials();
 
-				Settings settings = Settings.getSettings();
+                Settings settings = Settings.getSettings();
 
-				settings.setUsername(username);
-				settings.setPassword(password);
+                settings.setUsername(username);
+                settings.setPassword(password);
 
-				Log.d(this.getClass().getName(), "Username is: "
-						+ settings.getUsername());
-				Log.d(this.getClass().getName(), "Password is: "
-						+ settings.getPassword());
+                Log.d(this.getClass().getName(), "Username is: "
+                        + settings.getUsername());
+                Log.d(this.getClass().getName(), "Password is: "
+                        + settings.getPassword());
+                settings.setIcon(TimelineActivity.downloadFile(twitter
+                        .showUser(username).getProfileImageURL()));
+                finish();
 
-				finish();
+            } catch (TwitterException excep) {
+                validation.setText(selectRandomMessage());
+                InputMethodManager imm =
+                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-			} catch (TwitterException excep) {
-				validation.setText(selectRandomMessage());
-				InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
 
-			}
+            break;
+        }
+        case SOFT_KEYBOARD_CANCEL: {
+            Settings settings = Settings.getSettings();
+            Log.d(this.getClass().getName(), "Username is: "
+                    + settings.getUsername());
+            Log.d(this.getClass().getName(), "Password is: "
+                    + settings.getPassword());
+            finish();
+            break;
+        }
+        }
 
-			break;
-		}
-		case SOFT_KEYBOARD_CANCEL: {
-			Settings settings = Settings.getSettings();
-			Log.d(this.getClass().getName(), "Username is: "
-					+ settings.getUsername());
-			Log.d(this.getClass().getName(), "Password is: "
-					+ settings.getPassword());
-			finish();
-			break;
-		}
-		}
+    }
 
-	}
+    static class TextListener implements OnKeyListener {
+        private SettingsActivity settings;
 
-	class TextListener implements OnKeyListener {
-		private SettingsActivity settings;
+        public TextListener(SettingsActivity settings) {
+            this.settings = settings;
+        }
 
-		public TextListener(SettingsActivity settings) {
-			this.settings = settings;
-		}
+        public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+            Log.d(this.getClass().getName(), "Received keycode: " + keyCode);
 
-		public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-			Log.d(this.getClass().getName(), "Received keycode: " + keyCode);
+            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                if (view instanceof EditText) {
+                    EditText editTxt = (EditText) view;
+                    // - no idea why - this is what is returned in the emulator
+                    // when
+                    // I press these keys
+                    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) { // Clear
+                        // button?
+                        editTxt.setText("");
+                    } else {
+                        settings.processCmd(keyCode);
+                    }
+                }
+            }
+            return false;
+        }
+    }
 
-			if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-				if (view instanceof EditText) {
-					EditText editTxt = (EditText) view;
-					// - no idea why - this is what is returned in the emulator
-					// when
-					// I press these keys
-					if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) { // Clear
-						// button?
-						editTxt.setText("");
-					} else {
-						settings.processCmd(keyCode);
-					}
-				}
-			}
-			return false;
-		}
-	}
+    /**
+     * Helper method for selecting a random error message when invalid
+     * credentials are entered.
+     * 
+     * @return a random message
+     */
+    private CharSequence selectRandomMessage() {
 
-	/**
-	 * Helper method for selecting a random error message when invalid
-	 * credentials are entered.
-	 * 
-	 * @return a random message
-	 */
-	private CharSequence selectRandomMessage() {
-
-		int index = (int) Math.round(Math.random() * invalid.length);
-		return invalid[index];
-	}
+        int index = (int) Math.round(Math.random() * invalid.length);
+        return invalid[index];
+    }
 
 }

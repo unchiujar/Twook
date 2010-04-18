@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<!--
 		*********************************************** This file is part of
-		the Twook project (**linky**). Twook is free software: you can
+		the Twook project http://github.com/unchiujar/Twook Twook is free software: you can
 		redistribute it and/or modify it under the terms of the GNU General
 		Public License as published by the Free Software Foundation, either
 		version 3 of the License, or (at your option) any later version. Twook
@@ -15,18 +15,13 @@
 		**********************************************
 	-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="#FFFFFFFF"
-	android:textColor="#000000">
+	android:background="#FFFFFFFF"
+	android:textColor="#000000" android:orientation="horizontal" android:layout_height="144px" android:layout_width="480px">
 
-	<TableLayout android:id="@+id/TableLayout01"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_margin="0px">
+	<ImageButton android:id="@+id/tweet" android:layout_width="wrap_content" android:src="@drawable/tweet" android:minHeight="144px" android:layout_height="144px" android:layout_gravity="left" android:minWidth="94px" android:scaleType="fitCenter"></ImageButton><TableLayout android:id="@+id/buttons" android:layout_height="144px" android:layout_gravity="right" android:layout_width="wrap_content">
 		<TableRow android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/personal">
-			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/tweet"
-				android:src="@drawable/tweet_button"></ImageButton>
+			android:layout_height="wrap_content" android:id="@+id/personal" android:padding="0px" android:layout_marginBottom="0px" android:layout_marginTop="0px" android:layout_margin="0px" android:paddingBottom="0px">
+			
 			<ImageButton android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/replies"
 				android:src="@drawable/replies_button"></ImageButton>
@@ -45,13 +40,11 @@
 				android:layout_height="wrap_content" android:id="@+id/direct"
 				android:src="@drawable/direct"></ImageButton>
 			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/followers"
-				android:src="@drawable/icon"></ImageButton>
+				android:layout_height="wrap_content" android:id="@+id/followers" android:src="@drawable/followed"></ImageButton>
 
 
 			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/following"
-				android:src="@drawable/icon"></ImageButton>
+				android:layout_height="wrap_content" android:id="@+id/following" android:src="@drawable/following"></ImageButton>
 
 
 
@@ -62,20 +55,17 @@
 			<ImageButton android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/publicTimeline"
 				android:src="@drawable/public_timeline_button"></ImageButton>
+			
+			
 			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/featured"
-				android:src="@drawable/icon" android:layout_margin="0px"></ImageButton>
+				android:layout_height="wrap_content" android:id="@+id/search1" android:src="@drawable/question1"></ImageButton>
 			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/findpeople"></ImageButton>
+				android:layout_height="wrap_content" android:id="@+id/search2" android:src="@drawable/question2"></ImageButton>
 			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/search1" android:src="@drawable/question"></ImageButton>
-			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/search2"></ImageButton>
-			<ImageButton android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/search3"></ImageButton>
-			<ImageButton android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/search3" android:src="@drawable/question3"></ImageButton>
+			<ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="0px" android:id="@+id/search4" android:src="@drawable/question4"></ImageButton><ImageButton android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/favorite"
-				android:src="@drawable/icon" android:layout_margin="0px"></ImageButton>
+				android:layout_margin="0px" android:src="@drawable/favorites"></ImageButton><ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/findpeople" android:src="@drawable/search_users"></ImageButton>
 		</TableRow>
 		<TableRow android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/tweet_actions"
@@ -98,4 +88,5 @@
 				android:src="@drawable/settings_button"></ImageButton>
 		</TableRow>
 	</TableLayout>
+
 </LinearLayout>

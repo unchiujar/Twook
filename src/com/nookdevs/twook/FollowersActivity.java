@@ -1,5 +1,5 @@
 /***********************************************
-This file is part of the Twook project (**linky**).
+This file is part of the Twook project http://github.com/unchiujar/Twook
 
     Twook is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.PagableResponseList;
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -70,12 +69,12 @@ public class FollowersActivity extends TimelineActivity {
 			// FIXME userToTweets doesn't seem to work
 			for (User user : followers) {
 				Tweet tweet = new Tweet();
-				//FIXME user.getStatus().getText() does an NPE,  twitter4j bug ?
+				// FIXME user.getStatus().getText() does an NPE, twitter4j bug ?
 				tweet.setMessage("BUGGY twitter4j");
 				tweet.setUsername(user.getName());
 				tweet.setImage(downloadFile(user.getProfileImageURL()));
 				tweets.add(tweet);
-				Log.d(this.getClass().getName(), tweet.getUsername()+" - " 
+				Log.d(this.getClass().getName(), tweet.getUsername() + " - "
 						+ tweet.getMessage());
 			}
 			return tweets;
