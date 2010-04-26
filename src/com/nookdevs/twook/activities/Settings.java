@@ -16,7 +16,7 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  **********************************************/
 
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +54,8 @@ public class Settings {
     }
 
     private Settings() {
-		username = "";
-		password = "";
+		username = "unchiujar";
+		password = "lolibilizare";
 		refresh = 5;
 		searches.add("nook");
 		searches.add("twook");

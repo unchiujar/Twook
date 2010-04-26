@@ -16,25 +16,17 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  **********************************************/
 
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import twitter4j.Status;
-import twitter4j.User;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Handler.Callback;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -63,23 +55,15 @@ import com.nookdevs.common.nookBaseActivity;
  * @see RetweetsTimelineActivity
  */
 public abstract class TimelineActivity extends nookBaseActivity {
-
+    private final static String TAG = TimelineActivity.class.getName();
     private final static String SEARCH_BUTTON_MESSAGE = "Search button clicked (intent start mode)";
     /** Text listener used for scrolling and selecting in the ListView */
     private ListListener listListen = new ListListener(this);
 
-    /**
-     * Progress dialog that is displayed when the tweets are retrieved. The
-     * message in the progress dialog depends on the implementation of
-     * {@link updateView} in subclasses.
-     */
-    private ProgressDialog retriveProgress;
     /** The list of retrieved tweets. */
     private ArrayList<Tweet> retrievedTweets;
     /** Milliseconds to sleep the thread after getting the tweets */
-    private static final int SLEEP_TIME = 100;
     private TweetAdapter tweetAdapter;
-    private Runnable viewTweets;
 
     // touchscreen buttons
     protected ImageButton btn_tweet;
@@ -99,14 +83,37 @@ public abstract class TimelineActivity extends nookBaseActivity {
     protected ImageButton btn_favorites;
     protected ImageButton btn_search_users;
 
-    
-    Thread timelineThread;
+    protected Intent intent;
+    private Handler guiHandler;
+    @Override
+    protected void onRestart() {
 
+	super.onRestart();
+	Log.i(TAG, "Activity restarted");
+	startService(intent);
+    }
+
+    @Override
+    protected void onStart() {
+	super.onStart();
+	Log.i(TAG, "Activity started");
+    }
+
+    @Override
+    protected void onStop() {
+	super.onStop();
+	Log.i(TAG, "Activity stopped");
+
+	stopService(intent);
+    }
+
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	NAME = "Twook";
+
 	setContentView(R.layout.main);
 
 	createDefaultListeners();
@@ -117,15 +124,15 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	setListAdapter(this.tweetAdapter);
 
 	updateIcon();
-	viewTweets = new Runnable() {
-	    @Override
-	    public void run() {
-		getTimeline();
-	    }
-	};
+
 	ListView tweetLists = (ListView) findViewById(android.R.id.list);
 	tweetLists.setOnKeyListener(listListen);
+	setDownloadService();
     }
+
+    protected abstract void setDownloadService();
+    protected abstract void stopDownloadService();
+
 
     public void onResume() {
 	super.onResume();
@@ -155,33 +162,19 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		    tweetAdapter.add(tweet);
 		}
 	    }
-	    retriveProgress.dismiss();
+	    // retriveProgress.dismiss();
 	    tweetAdapter.notifyDataSetChanged();
 	}
     };
 
-    abstract protected List<Tweet> getTweets();
-
-    private void getTimeline() {
-	try {
-	    retrievedTweets = new ArrayList<Tweet>();
-	    List<Tweet> tweets = getTweets();
-
-	    for (Tweet tweet : tweets) {
-		retrievedTweets.add(tweet);
-
-	    }
-
-	    Thread.sleep(SLEEP_TIME);
-	    Log.i("ARRAY", "" + retrievedTweets.size());
-	} catch (InterruptedException e) {
-	    e.printStackTrace();
-	    Log.e("BACKGROUND_PROC", e.fillInStackTrace() + e.getMessage());
-	}
+    public void setRetrievedTweets(List<Tweet> tweets) {
+	Log.d(TAG, "Setting new list of messages");
+	retrievedTweets = (ArrayList<Tweet>) tweets;
 	runOnUiThread(returnRes);
+
     }
 
-    private class TweetAdapter extends ArrayAdapter<Tweet> {
+    public class TweetAdapter extends ArrayAdapter<Tweet> {
 	private ArrayList<Tweet> items;
 
 	public TweetAdapter(Context context, int textViewResourceId,
@@ -213,34 +206,6 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	    }
 	    return v;
 	}
-    }
-
-    public static Bitmap downloadFile(URI fileURI) {
-	URL imageURL = null;
-	try {
-	    imageURL = fileURI.toURL();
-	} catch (MalformedURLException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-	return downloadFile(imageURL);
-    }
-
-    public static Bitmap downloadFile(URL fileURL) {
-
-	try {
-	    HttpURLConnection conn = (HttpURLConnection) fileURL
-		    .openConnection();
-	    conn.setDoInput(true);
-	    conn.connect();
-	    InputStream is = conn.getInputStream();
-	    return BitmapFactory.decodeStream(is);
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-	// FIXME add default image
-	return null;
     }
 
     // =================== Button listeners =======================
@@ -436,7 +401,6 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	});
 	Log.d(this.getClass().getName(), "Search button listener set");
 
-
 	btn_search4.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
@@ -476,14 +440,6 @@ public abstract class TimelineActivity extends nookBaseActivity {
     }
 
     abstract protected void createListeners();
-
-    protected void updateView(String message) {
-	timelineThread = new Thread(null, viewTweets, "MagentoBackground");
-	timelineThread.start();
-	retriveProgress = ProgressDialog.show(TimelineActivity.this,
-		"Please wait...", message, true);
-
-    }
 
     protected class ListListener implements OnKeyListener {
 	private TimelineActivity settings;
@@ -537,51 +493,19 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	}
     }
 
-    // FIXME fails for Statuses taken from a User list:
-    // PagableResponseList<User> followed = twitter.getFriendsStatuses();
-
-    /**
-     * Utility method used for transforming a List of Message or Status into a
-     * List of Tweet.
-     * 
-     * @param messages
-     *            a List of classes implementinf ITweet
-     * @return a List of Tweet to be used with the TweetAdapter
-     */
-    protected List<Tweet> statusToTweets(List<Status> messages) {
-	Log.d(this.getClass().getName(), "Transforming Statuses "
-		+ "to Tweets :" + messages.size());
-	List<Tweet> tweets = new ArrayList<Tweet>();
-	for (Status message : messages) {
-	    Tweet tweet = new Tweet();
-	    tweet.setUsername(message.getUser().getName());
-	    tweet.setMessage(message.getText());
-	    tweet
-		    .setImage(downloadFile(message.getUser()
-			    .getProfileImageURL()));
-	    tweets.add(tweet);
-	    Log.d(this.getClass().getName(), "Added : " + tweet.getUsername()
-		    + "- " + tweet.getMessage());
-	}
-	return tweets;
+    @Override
+    public void onPause() {
+	super.onPause();
+	Log.i(TAG, "Activity paused");
+	stopDownloadService();
     }
 
-    /**
-     * Utility method used for transforming a List of User into a list of Tweet.
-     * 
-     * @param users
-     * @return a List of Tweet to be used with the TweetAdapter
-     */
-    protected List<Tweet> userToTweets(List<User> users) {
-	List<Tweet> tweets = new ArrayList<Tweet>();
-	for (User user : users) {
-	    Tweet tweet = new Tweet();
-	    tweet.setMessage(user.getStatus().getText());
-	    tweet.setImage(downloadFile(user.getProfileImageURL()));
-	    tweet.setUsername(user.getName());
-	    tweets.add(tweet);
-	    Log.d(this.getClass().getName(), "tweet " + tweet.getMessage());
-	}
-	return tweets;
+    @Override
+    protected void onDestroy() {
+	super.onDestroy();
+	Log.i(TAG, "Activity destroyed");
+	stopDownloadService();
+
     }
+
 }

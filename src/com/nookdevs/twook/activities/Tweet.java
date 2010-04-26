@@ -16,7 +16,9 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  **********************************************/
 
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
+
+import java.net.URL;
 
 import android.graphics.Bitmap;
 
@@ -35,6 +37,15 @@ public class Tweet {
     private Bitmap image;
     /** The name of the user who posted this tweet. */
     private String username;
+
+    private URL imageURL;
+    public URL getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(URL imageURL) {
+        this.imageURL = imageURL;
+    }
 
     /**
      * @return The name of the user who posted this tweet.

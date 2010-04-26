@@ -118,5 +118,5 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
  * To use the above we need to define a button
  *  with the name "personal_timeline" somwhere in the layout XML.
  */
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 

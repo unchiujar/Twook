@@ -16,19 +16,16 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  **********************************************/
 
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 
-import java.util.List;
-
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.nookdevs.twook.services.FavoriteTimelineDownloaderService;
 
 /**
  * 
@@ -42,7 +39,6 @@ import android.view.View.OnClickListener;
  * 
  */
 public class FavoriteTimelineActivity extends TimelineActivity {
-    private static final String MESSAGE = "Finding the ones you love...";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,24 +48,6 @@ public class FavoriteTimelineActivity extends TimelineActivity {
 	NAME = res.getText(R.string.app_name).toString()
 		+ res.getText(R.string.title_separator).toString()
 		+ res.getText(R.string.favorites_timeline).toString();
-	updateView(MESSAGE);
-    }
-
-    @Override
-    protected List<Tweet> getTweets() {
-	Settings settings = Settings.getSettings();
-	Twitter twitter = new TwitterFactory().getInstance(settings
-		.getUsername(), settings.getPassword());
-	List<Status> statuses;
-	try {
-	    statuses = twitter.getFavorites();
-	    return statusToTweets(statuses);
-
-	} catch (TwitterException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-	return null;
     }
 
     @Override
@@ -78,11 +56,19 @@ public class FavoriteTimelineActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		updateView(MESSAGE);
 		Log.d(this.getClass().getName(), "Favorites button clicked");
 
 	    }
 	});
 
+    }
+
+    @Override protected void stopDownloadService() { stopService(intent);}   @Override
+    protected void setDownloadService() {
+	FavoriteTimelineDownloaderService service = new FavoriteTimelineDownloaderService();
+	intent = new Intent(this, FavoriteTimelineDownloaderService.class);
+	startService(intent);	
+	service.setMainActivity(this);
+	service.startDownload();
     }
 }

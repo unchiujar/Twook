@@ -16,7 +16,7 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  **********************************************/
 
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -56,7 +56,6 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 public class SearchActivity extends TimelineActivity {
     /** Class name used in logging statements */
     private static final String TAG = SearchActivity.class.getName();
-    private static final String MESSAGE = "Let's see what people have to say about ";
     private static final String SEARCH_BUTTON_MESSAGE = "Search button clicked (start search mode)";
     private int searchNumber = 0;
     private String currentSearch = "nook";
@@ -92,10 +91,10 @@ public class SearchActivity extends TimelineActivity {
 	textSearch = (EditText) findViewById(R.id.search_term);
 	textSearch.setOnKeyListener(softKeyListener);
 	updateIcon();
-	updateView(MESSAGE + currentSearch);
+//	updateView(MESSAGE + currentSearch);
     }
 
-    @Override
+//    @Override
     protected List<Tweet> getTweets() {
 	final Twitter twitter = new TwitterFactory().getInstance();
 	try {
@@ -107,9 +106,7 @@ public class SearchActivity extends TimelineActivity {
 		final Tweet tweetR = new Tweet();
 		tweetR.setUsername(tweet.getFromUser());
 		tweetR.setMessage(tweet.getText());
-		tweetR
-			.setImage(downloadFile(new URL(tweet
-				.getProfileImageUrl())));
+		tweetR.setImageURL(new URL(tweet.getProfileImageUrl()));
 		tweets.add(tweetR);
 	    }
 	    return tweets;
@@ -132,7 +129,7 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search1);
 		currentSearch = search1;
-		updateView(MESSAGE + search1);
+//		updateView(MESSAGE + search1);
 		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
 
 	    }
@@ -155,7 +152,7 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search2);
 		currentSearch = search2;
-		updateView(MESSAGE + search2);
+//		updateView(MESSAGE + search2);
 		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
 
 	    }
@@ -178,7 +175,7 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search3);
 		currentSearch = search3;
-		updateView(MESSAGE + search3);
+//		updateView(MESSAGE + search3);
 		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
 
 	    }
@@ -202,7 +199,7 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search4);
 		currentSearch = search4;
-		updateView(MESSAGE + search4);
+//		updateView(MESSAGE + search4);
 		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
 
 	    }
@@ -250,7 +247,7 @@ public class SearchActivity extends TimelineActivity {
 		    // Clear
 		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_SUBMIT) {
 			currentSearch = editTxt.getText().toString();
-			updateView(MESSAGE + currentSearch);
+//			updateView(MESSAGE + currentSearch);
 			switch (searchNumber) {
 			case 1:search1 = currentSearch;
 			    break;
@@ -267,6 +264,12 @@ public class SearchActivity extends TimelineActivity {
 	    }
 	    return true;
 	}
+    }
+
+    @Override protected void stopDownloadService() { stopService(intent);}   @Override
+    protected void setDownloadService() {
+	// TODO Auto-generated method stub
+	
     }
 
 }

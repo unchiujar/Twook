@@ -16,7 +16,7 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  **********************************************/
 
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

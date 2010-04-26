@@ -1,3 +1,9 @@
+2010-04-27 Vasile Jureschi  <vasile.jureschi@gmail.com>
+	* changed everything to using services, searches are broken
+	* moved classes in two separate packages, activities and services
+	* added image cache and multithreading for icon downloads
+	
+
 2010-04-17 Vasile Jureschi  <vasile.jureschi@gmail.com>
 	* added all the button images for the first and second row
 	* changed the tweet button to a large button on the left that displays

@@ -16,19 +16,9 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
  **********************************************/
 
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import twitter4j.ResponseList;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.User;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +33,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.nookdevs.common.nookBaseSimpleActivity;
+import com.nookdevs.twook.services.UserSearchService;
 
 /**
  * Activity that allows to search for users.
@@ -56,15 +47,15 @@ import com.nookdevs.common.nookBaseSimpleActivity;
 public class UserSearchActivity extends TimelineActivity {
     /** Class name used in logging statements */
     private static final String TAG = UserSearchActivity.class.getName();
-    private static final String MESSAGE = "Looking for users named ";
     private static final String SEARCH_BUTTON_MESSAGE = "Find users button clicked (start search mode)";
 
     private TextEditListener softKeyListener = new TextEditListener(this);
     private ListListener mlistListener = new ListListener(this);
 
     private EditText textSearch;
-    
+
     private String searchTerm;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -88,35 +79,6 @@ public class UserSearchActivity extends TimelineActivity {
     }
 
     @Override
-    protected List<Tweet> getTweets() {
-	String username = Settings.getSettings().getUsername();
-	String password = Settings.getSettings().getPassword();
-	final Twitter twitter = new TwitterFactory().getInstance(username, password);
-	try {
-	    twitter.verifyCredentials();
-	    final ResponseList<User> users = twitter.searchUsers(searchTerm, 1);
-		List<Tweet> tweets = new ArrayList<Tweet>();
-		// FIXME userToTweets doesn't seem to work
-		for (User user : users) {
-			Tweet tweet = new Tweet();
-			// FIXME user.getStatus().getText() does an NPE, twitter4j bug ?
-			tweet.setMessage("BUGGY twitter4j");
-			tweet.setUsername(user.getName());
-			tweet.setImage(downloadFile(user.getProfileImageURL()));
-			tweets.add(tweet);
-			Log.d(this.getClass().getName(), tweet.getUsername() + " - "
-					+ tweet.getMessage());
-		}
-		return tweets;
-
-
-	} catch (TwitterException e) {
-	    Log.e(TAG, e.getMessage());
-	    return Collections.emptyList();
-	}
-    }
-
-    @Override
     protected void createListeners() {
 	super.createDefaultListeners();
 	btn_search_users.setOnClickListener(new OnClickListener() {
@@ -124,12 +86,11 @@ public class UserSearchActivity extends TimelineActivity {
 	    @Override
 	    public void onClick(View v) {
 		textSearch.setText(searchTerm);
-		updateView(MESSAGE + searchTerm);
 		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
-	
+
 	btn_search_users.setOnLongClickListener(new OnLongClickListener() {
 
 	    @Override
@@ -171,13 +132,31 @@ public class UserSearchActivity extends TimelineActivity {
 		    // Clear
 		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_SUBMIT) {
 			searchTerm = editTxt.getText().toString();
-			updateView(MESSAGE + searchTerm);
 		    }
 
 		}
 	    }
 	    return true;
 	}
+    }
+
+    @Override
+    protected void stopDownloadService() {
+	stopService(intent);
+    }
+
+    @Override
+    protected void setDownloadService() {
+	UserSearchService service = new UserSearchService();
+	service.setMainActivity(this);
+	intent = new Intent(this, UserSearchService.class);
+	startService(intent);
+	service.setMainActivity(this);
+	service.startDownload();
+    }
+
+    public String getSearchTerm() {
+	return searchTerm;
     }
 
 }

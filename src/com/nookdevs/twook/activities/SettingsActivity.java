@@ -15,7 +15,7 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
     along with Twook.  If not, see <http://www.gnu.org/licenses/>.
 
  **********************************************/
-package com.nookdevs.twook;
+package com.nookdevs.twook.activities;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -28,11 +28,9 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nookdevs.common.nookBaseSimpleActivity;
-import com.nookdevs.twook.R.id;
 
 /**
  * Activity that prompts the user to enter a username and password.
@@ -109,8 +107,9 @@ public class SettingsActivity extends nookBaseSimpleActivity {
                         + settings.getUsername());
                 Log.d(this.getClass().getName(), "Password is: "
                         + settings.getPassword());
-                settings.setIcon(TimelineActivity.downloadFile(twitter
-                        .showUser(username).getProfileImageURL()));
+                //FIXME icon download make download methods utils static
+//                settings.setIcon(TimelineActivity.downloadFile(twitter
+//                        .showUser(username).getProfileImageURL()));
                 finish();
 
             } catch (TwitterException excep) {
