@@ -55,7 +55,7 @@ public class UserSearchActivity extends TimelineActivity {
     private EditText textSearch;
 
     private String searchTerm;
-
+    UserSearchService service;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -86,7 +86,8 @@ public class UserSearchActivity extends TimelineActivity {
 	    @Override
 	    public void onClick(View v) {
 		textSearch.setText(searchTerm);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		service.doDownload();
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
@@ -122,7 +123,7 @@ public class UserSearchActivity extends TimelineActivity {
 	 * android.view.KeyEvent)
 	 */
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(this.getClass().getName(), "Received keycode: " + keyCode);
+	    Log.d(TAG, "Received keycode: " + keyCode);
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
 		if (view instanceof EditText) {
 		    final EditText editTxt = (EditText) view;
@@ -132,6 +133,7 @@ public class UserSearchActivity extends TimelineActivity {
 		    // Clear
 		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_SUBMIT) {
 			searchTerm = editTxt.getText().toString();
+			service.doDownload();
 		    }
 
 		}
@@ -142,12 +144,13 @@ public class UserSearchActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
     }
 
     @Override
     protected void setDownloadService() {
-	UserSearchService service = new UserSearchService();
+	service = new UserSearchService();
 	service.setMainActivity(this);
 	intent = new Intent(this, UserSearchService.class);
 	startService(intent);

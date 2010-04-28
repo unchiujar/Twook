@@ -28,14 +28,12 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 		android:layout_height="wrap_content" android:id="@+id/password"
 		android:hint="Enter Twitter account password" android:inputType="textPassword"></EditText>
 
-	<!--
-		<Spinner android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/refreshRate"></Spinner>
-	-->
 
 
 
 
 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/validation" android:textColor="#000000"></TextView>
+<!--
+<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:prompt="@string/refresh_prompt" android:id="@+id/refresh_time"></Spinner>
+-->
 </LinearLayout>

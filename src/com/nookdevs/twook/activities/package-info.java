@@ -70,7 +70,7 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
  *             &#064;Override
  *             public void onClick(View v) {
  *                 updateView(&quot;Let's see what you said...&quot;);
- *                 Log.d(this.getClass().getName(),
+ *                 Log.d(TAG,
  *                         &quot;Personal timeline button clicked&quot;);
  * 
  *             }
@@ -101,12 +101,12 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
  *                         new Intent(v.getContext(),
  *                                 PersonalTimelineActivity.class);
  *                 startActivity(settingsIntent);
- *                 Log.d(this.getClass().getName(),
+ *                 Log.d(TAG,
  *                         &quot;Personal timeline button clicked&quot;);
  * 
  *             }
  *         });
- *         Log.d(this.getClass().getName(),
+ *         Log.d(TAG,
  *                 &quot;Personal timeline button listener set&quot;);
  *         .....
  *     

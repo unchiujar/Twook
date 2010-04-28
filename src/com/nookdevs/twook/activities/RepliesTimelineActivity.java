@@ -40,7 +40,9 @@ import com.nookdevs.twook.services.RepliesDownloaderService;
  */
 
 public class RepliesTimelineActivity extends TimelineActivity {
+    private final static String TAG = RepliesTimelineActivity.class.getName();
 
+    RepliesDownloaderService service;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -57,7 +59,8 @@ public class RepliesTimelineActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		Log.d(this.getClass().getName(),
+		service.doDownload();
+		Log.d(TAG,
 			"Replies timeline button clicked");
 
 	    }
@@ -67,12 +70,13 @@ public class RepliesTimelineActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
     }
 
     @Override
     protected void setDownloadService() {
-	RepliesDownloaderService service = new RepliesDownloaderService();
+	service = new RepliesDownloaderService();
 	intent = new Intent(this, RepliesDownloaderService.class);
 	startService(intent);
 	service.setMainActivity(this);

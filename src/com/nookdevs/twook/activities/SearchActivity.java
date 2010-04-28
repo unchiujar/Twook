@@ -18,17 +18,7 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
 package com.nookdevs.twook.activities;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +33,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.nookdevs.common.nookBaseSimpleActivity;
+import com.nookdevs.twook.services.RepliesDownloaderService;
+import com.nookdevs.twook.services.SearchService;
 
 /**
  * Activity that displays various searches.
@@ -65,12 +57,11 @@ public class SearchActivity extends TimelineActivity {
     private String search3 = "android";
     private String search4 = "android";
 
-
     private TextEditListener softKeyListener = new TextEditListener(this);
     private ListListener mlistListener = new ListListener(this);
 
     private EditText textSearch;
-
+    SearchService service;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -91,33 +82,6 @@ public class SearchActivity extends TimelineActivity {
 	textSearch = (EditText) findViewById(R.id.search_term);
 	textSearch.setOnKeyListener(softKeyListener);
 	updateIcon();
-//	updateView(MESSAGE + currentSearch);
-    }
-
-//    @Override
-    protected List<Tweet> getTweets() {
-	final Twitter twitter = new TwitterFactory().getInstance();
-	try {
-	    final Query query = new Query(currentSearch);
-	    final QueryResult result = twitter.search(query);
-	    final List<twitter4j.Tweet> resultTweets = result.getTweets();
-	    final List<Tweet> tweets = new ArrayList<Tweet>();
-	    for (twitter4j.Tweet tweet : resultTweets) {
-		final Tweet tweetR = new Tweet();
-		tweetR.setUsername(tweet.getFromUser());
-		tweetR.setMessage(tweet.getText());
-		tweetR.setImageURL(new URL(tweet.getProfileImageUrl()));
-		tweets.add(tweetR);
-	    }
-	    return tweets;
-
-	} catch (TwitterException e) {
-	    Log.e(TAG, e.getMessage());
-	    return Collections.emptyList();
-	} catch (MalformedURLException e) {
-	    Log.e(TAG, e.getMessage());
-	    return Collections.emptyList();
-	}
     }
 
     @Override
@@ -129,8 +93,8 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search1);
 		currentSearch = search1;
-//		updateView(MESSAGE + search1);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		service.doDownload();
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
@@ -152,8 +116,8 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search2);
 		currentSearch = search2;
-//		updateView(MESSAGE + search2);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		service.doDownload();
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
@@ -175,8 +139,8 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search3);
 		currentSearch = search3;
-//		updateView(MESSAGE + search3);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		service.doDownload();
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
@@ -199,8 +163,8 @@ public class SearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(search4);
 		currentSearch = search4;
-//		updateView(MESSAGE + search4);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		service.doDownload();
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
@@ -237,28 +201,34 @@ public class SearchActivity extends TimelineActivity {
 	 * android.view.KeyEvent)
 	 */
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(this.getClass().getName(), "Received keycode: " + keyCode);
+	    Log.d(TAG, "Received keycode: " + keyCode);
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
 		if (view instanceof EditText) {
 		    final EditText editTxt = (EditText) view;
+		    // Clear
 		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) {
 			editTxt.setText("");
 		    }
-		    // Clear
 		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_SUBMIT) {
 			currentSearch = editTxt.getText().toString();
-//			updateView(MESSAGE + currentSearch);
+			// updateView(MESSAGE + currentSearch);
 			switch (searchNumber) {
-			case 1:search1 = currentSearch;
+			case 1:
+			    search1 = currentSearch;
 			    break;
-			case 2:search2 = currentSearch;
+			case 2:
+			    search2 = currentSearch;
 			    break;
-			case 3:search3 = currentSearch;
+			case 3:
+			    search3 = currentSearch;
 			    break;
-			case 4:search4 = currentSearch;
+			case 4:
+			    search4 = currentSearch;
 			    break;
 			}
 		    }
+		    service.doDownload();
+
 
 		}
 	    }
@@ -266,10 +236,22 @@ public class SearchActivity extends TimelineActivity {
 	}
     }
 
-    @Override protected void stopDownloadService() { stopService(intent);}   @Override
+    public String getSearchTerm() {
+	return currentSearch;
+    }
+
+    @Override
+    protected void stopDownloadService() {
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();    }
+
+    @Override
     protected void setDownloadService() {
-	// TODO Auto-generated method stub
-	
+	service = new SearchService();
+	intent = new Intent(this, RepliesDownloaderService.class);
+	startService(intent);
+	service.setMainActivity(this);
+	service.startDownload();
     }
 
 }

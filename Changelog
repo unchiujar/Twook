@@ -1,3 +1,8 @@
+2010-04-29 Vasile Jureschi  <vasile.jureschi@gmail.com>
+	* fixed search and fixed background services which did not stop
+	* moved utilities from MessagesDownloader class to their own class
+	* set a refresh time for the current view (messages) of 30 seconds
+	
 2010-04-27 Vasile Jureschi  <vasile.jureschi@gmail.com>
 	* changed everything to using services, searches are broken
 	* moved classes in two separate packages, activities and services

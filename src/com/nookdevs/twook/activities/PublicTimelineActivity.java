@@ -41,7 +41,7 @@ import com.nookdevs.twook.services.PublicMessagesDownloaderService;
 
 public class PublicTimelineActivity extends TimelineActivity {
     private final static String TAG = PublicTimelineActivity.class.getName();
-
+    PublicMessagesDownloaderService service;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -58,22 +58,23 @@ public class PublicTimelineActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		// runOnUiThread(returnRes);
-		// updateView("Retrieving public timeline");
+		service.doDownload();
 		Log.d(TAG, "Public timeline button clicked");
 	    }
 	});
 
     }
 
+    
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
     }
 
     @Override
     protected void setDownloadService() {
-	PublicMessagesDownloaderService service = new PublicMessagesDownloaderService();
+	service = new PublicMessagesDownloaderService();
 	intent = new Intent(this, PublicMessagesDownloaderService.class);
 	startService(intent);
 	Log.d(TAG, "Service started, setting main activity");

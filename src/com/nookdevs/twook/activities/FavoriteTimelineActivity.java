@@ -39,6 +39,8 @@ import com.nookdevs.twook.services.FavoriteTimelineDownloaderService;
  * 
  */
 public class FavoriteTimelineActivity extends TimelineActivity {
+    private static final String TAG = FavoriteTimelineActivity.class.getName();
+    FavoriteTimelineDownloaderService service;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,18 +58,25 @@ public class FavoriteTimelineActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		Log.d(this.getClass().getName(), "Favorites button clicked");
+		service.doDownload();
+		Log.d(TAG, "Favorites button clicked");
 
 	    }
 	});
 
     }
 
-    @Override protected void stopDownloadService() { stopService(intent);}   @Override
+    @Override
+    protected void stopDownloadService() {
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
+    }
+
+    @Override
     protected void setDownloadService() {
-	FavoriteTimelineDownloaderService service = new FavoriteTimelineDownloaderService();
+	service = new FavoriteTimelineDownloaderService();
 	intent = new Intent(this, FavoriteTimelineDownloaderService.class);
-	startService(intent);	
+	startService(intent);
 	service.setMainActivity(this);
 	service.startDownload();
     }

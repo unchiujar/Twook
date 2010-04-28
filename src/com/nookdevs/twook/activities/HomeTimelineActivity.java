@@ -39,6 +39,8 @@ import com.nookdevs.twook.services.HomeTimelineDownloaderService;
  * 
  */
 public class HomeTimelineActivity extends TimelineActivity {
+    private static final String TAG = HomeTimelineActivity.class.getName();
+    HomeTimelineDownloaderService service;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,8 @@ public class HomeTimelineActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		Log.d(this.getClass().getName(), "Home "
+		service.doDownload();
+		Log.d(TAG, "Home "
 			+ "timeline button clicked");
 
 	    }
@@ -66,12 +69,13 @@ public class HomeTimelineActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
     }
 
     @Override
     protected void setDownloadService() {
-	HomeTimelineDownloaderService service = new HomeTimelineDownloaderService();
+	service = new HomeTimelineDownloaderService();
 	intent = new Intent(this, HomeTimelineDownloaderService.class);
 	startService(intent);
 	service.setMainActivity(this);

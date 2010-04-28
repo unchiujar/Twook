@@ -39,6 +39,8 @@ import com.nookdevs.twook.services.RetweetsDownloaderService;
  * 
  */
 public class RetweetsTimelineActivity extends TimelineActivity {
+    private static final String TAG = RetweetsDownloaderService.class.getName();
+    RetweetsDownloaderService service;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,8 @@ public class RetweetsTimelineActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		Log.d(this.getClass().getName(),
+		service.doDownload();
+		Log.d(TAG,
 			"Retweets timeline button clicked");
 
 	    }
@@ -66,12 +69,13 @@ public class RetweetsTimelineActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
     }
 
     @Override
     protected void setDownloadService() {
-	RetweetsDownloaderService service = new RetweetsDownloaderService();
+	service = new RetweetsDownloaderService();
 	intent = new Intent(this, RetweetsDownloaderService.class);
 	startService(intent);
 	service.setMainActivity(this);

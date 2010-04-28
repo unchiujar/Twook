@@ -36,6 +36,8 @@ import com.nookdevs.twook.services.PersonalMessagesDownloaderService;
  * @see TimelineActivity
  */
 public class PersonalTimelineActivity extends TimelineActivity {
+    private static final String TAG = PersonalTimelineActivity.class.getName();
+    PersonalMessagesDownloaderService service;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,8 @@ public class PersonalTimelineActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		Log.d(this.getClass().getName(),
+		service.doDownload();
+		Log.d(TAG,
 			"Personal timeline button clicked");
 
 	    }
@@ -63,12 +66,13 @@ public class PersonalTimelineActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
     }
 
     @Override
     protected void setDownloadService() {
-	PersonalMessagesDownloaderService service = new PersonalMessagesDownloaderService();
+	service = new PersonalMessagesDownloaderService();
 	intent = new Intent(this, PersonalMessagesDownloaderService.class);
 	startService(intent);
 	service.setMainActivity(this);

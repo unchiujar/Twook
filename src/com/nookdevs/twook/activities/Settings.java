@@ -19,7 +19,6 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 package com.nookdevs.twook.activities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.graphics.Bitmap;
 
@@ -39,7 +38,7 @@ import android.graphics.Bitmap;
 public class Settings {
 	String username;
 	String password;
-	List<String> searches = new ArrayList<String>();
+	ArrayList<String> searches = new ArrayList<String>();
 	int refresh;
 	private static Settings settings;
 
@@ -55,7 +54,7 @@ public class Settings {
 
     private Settings() {
 		username = "unchiujar";
-		password = "lolibilizare";
+		password = "rostopasca";
 		refresh = 5;
 		searches.add("nook");
 		searches.add("twook");

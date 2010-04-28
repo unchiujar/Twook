@@ -19,14 +19,10 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 package com.nookdevs.twook.activities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Handler.Callback;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -84,7 +80,6 @@ public abstract class TimelineActivity extends nookBaseActivity {
     protected ImageButton btn_search_users;
 
     protected Intent intent;
-    private Handler guiHandler;
     @Override
     protected void onRestart() {
 
@@ -167,7 +162,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	}
     };
 
-    public void setRetrievedTweets(List<Tweet> tweets) {
+    public void setRetrievedTweets(ArrayList<Tweet> tweets) {
 	Log.d(TAG, "Setting new list of messages");
 	retrievedTweets = (ArrayList<Tweet>) tweets;
 	runOnUiThread(returnRes);
@@ -236,10 +231,10 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			TweetActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), "Tweet button clicked");
+		Log.d(TAG, "Tweet button clicked");
 	    }
 	});
-	Log.d(this.getClass().getName(), "Tweet button listener set");
+	Log.d(TAG, "Tweet button listener set");
 	btn_settings.setOnClickListener(new OnClickListener() {
 
 	    @Override
@@ -248,10 +243,10 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SettingsActivity.class);
 		startActivityForResult(settingsIntent, 0);
-		Log.d(this.getClass().getName(), "Settings button clicked");
+		Log.d(TAG, "Settings button clicked");
 	    }
 	});
-	Log.d(this.getClass().getName(), "Settings button listener set");
+	Log.d(TAG, "Settings button listener set");
 
 	btn_public_timeline.setOnClickListener(new OnClickListener() {
 
@@ -260,12 +255,12 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			PublicTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(),
+		Log.d(TAG,
 			"Public timeline button clicked");
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Public timeline button listener set");
+	Log.d(TAG, "Public timeline button listener set");
 
 	btn_personal_timeline.setOnClickListener(new OnClickListener() {
 
@@ -274,12 +269,12 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		final Intent settingsIntent = new Intent(v.getContext(),
 			PersonalTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(),
+		Log.d(TAG,
 			"Personal timeline button clicked");
 
 	    }
 	});
-	Log.d(this.getClass().getName(),
+	Log.d(TAG,
 		"Personal timeline button listener set");
 
 	btn_replies_timeline.setOnClickListener(new OnClickListener() {
@@ -289,13 +284,13 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		final Intent settingsIntent = new Intent(v.getContext(),
 			RepliesTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(),
+		Log.d(TAG,
 			"Replies timeline button clicked");
 
 	    }
 	});
 	Log
-		.d(this.getClass().getName(),
+		.d(TAG,
 			"Replies timeline button listener set");
 
 	btn_retweets_timeline.setOnClickListener(new OnClickListener() {
@@ -304,12 +299,12 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		final Intent settingsIntent = new Intent(v.getContext(),
 			RetweetsTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(),
+		Log.d(TAG,
 			"Retweets timeline button clicked");
 
 	    }
 	});
-	Log.d(this.getClass().getName(),
+	Log.d(TAG,
 		"Retweets timeline button listener set");
 
 	btn_direct_messages_timeline.setOnClickListener(new OnClickListener() {
@@ -318,12 +313,12 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			DirectMessagesTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(),
+		Log.d(TAG,
 			"Direct messages timeline button clicked");
 
 	    }
 	});
-	Log.d(this.getClass().getName(),
+	Log.d(TAG,
 		"Direct messages timeline button listener set");
 
 	btn_followers.setOnClickListener(new OnClickListener() {
@@ -332,11 +327,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			FollowersActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), "Followers button clicked");
+		Log.d(TAG, "Followers button clicked");
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Followers button listener set");
+	Log.d(TAG, "Followers button listener set");
 
 	btn_followed.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -344,12 +339,12 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			FollowedActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(),
+		Log.d(TAG,
 			"Followed users button clicked");
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Followed users button listener set");
+	Log.d(TAG, "Followed users button listener set");
 
 	btn_home_timeline.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -358,12 +353,12 @@ public abstract class TimelineActivity extends nookBaseActivity {
 			HomeTimelineActivity.class);
 		startActivity(settingsIntent);
 		Log
-			.d(this.getClass().getName(),
+			.d(TAG,
 				"Home timeline button clicked");
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Home timeline button listener set");
+	Log.d(TAG, "Home timeline button listener set");
 
 	btn_search1.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -371,11 +366,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Search button listener set");
+	Log.d(TAG, "Search button listener set");
 
 	btn_search2.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -383,11 +378,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Search button listener set");
+	Log.d(TAG, "Search button listener set");
 
 	btn_search3.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -395,11 +390,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Search button listener set");
+	Log.d(TAG, "Search button listener set");
 
 	btn_search4.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -407,11 +402,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), SEARCH_BUTTON_MESSAGE);
+		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Search button listener set");
+	Log.d(TAG, "Search button listener set");
 
 	btn_favorites.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -419,11 +414,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			FavoriteTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), "Favorites button clicked.");
+		Log.d(TAG, "Favorites button clicked.");
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "Favorite button listener set");
+	Log.d(TAG, "Favorite button listener set");
 
 	btn_search_users.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -431,11 +426,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			UserSearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(this.getClass().getName(), "User search button clicked.");
+		Log.d(TAG, "User search button clicked.");
 
 	    }
 	});
-	Log.d(this.getClass().getName(), "User search listener set");
+	Log.d(TAG, "User search listener set");
 
     }
 
@@ -449,7 +444,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	}
 
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(this.getClass().getName(), "Received keycode: " + keyCode);
+	    Log.d(TAG, "Received keycode: " + keyCode);
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP
 		    && keyCode == NOOK_PAGE_UP_KEY_LEFT) {
 		ListView list = (ListView) findViewById(android.R.id.list);
@@ -458,7 +453,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		list.scrollBy(0,
 			list.getScrollY() >= list.getMaxScrollAmount() ? -list
 				.getMaxScrollAmount() : -list.getScrollY());
-		Log.d(this.getClass().getName(), "Changing scroll, "
+		Log.d(TAG, "Changing scroll, "
 			+ "max is :" + list.getMaxScrollAmount()
 			+ " current is : " + list.getScrollY());
 	    }
@@ -467,7 +462,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		ListView // list.getSelectedView().setBackgroundColor(30);
 		list = (ListView) findViewById(android.R.id.list);
 		list.scrollBy(0, list.getMaxScrollAmount());
-		Log.d(this.getClass().getName(), "Changing selection ");
+		Log.d(TAG, "Changing selection ");
 	    }
 
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP
@@ -475,7 +470,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		ListView list = (ListView) findViewById(android.R.id.list);
 		list.setSelection(5);
 		list.setSelected(true);
-		Log.d(this.getClass().getName(), "Selected :"
+		Log.d(TAG, "Selected :"
 			+ list.getSelectedItemPosition());
 
 	    }
@@ -485,7 +480,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		ListView list = (ListView) findViewById(android.R.id.list);
 		list.setSelection(9);
 		list.setSelected(true);
-		Log.d(this.getClass().getName(), "Selected :"
+		Log.d(TAG, "Selected :"
 			+ list.getSelectedItemPosition());
 	    }
 

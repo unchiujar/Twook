@@ -27,10 +27,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nookdevs.common.nookBaseSimpleActivity;
+import com.nookdevs.twook.utilities.Utilities;
 
 /**
  * Activity that prompts the user to enter a username and password.
@@ -41,39 +44,44 @@ import com.nookdevs.common.nookBaseSimpleActivity;
  * @see Settings
  */
 public class SettingsActivity extends nookBaseSimpleActivity {
-
-    private TextListener   credentialsListener = new TextListener(this);
+    private final static String TAG = SettingsActivity.class.getName();
+    private TextListener credentialsListener = new TextListener(this);
     /** Holds the messages displayed when the entered credentials are invalid. */
     private CharSequence[] invalid;
 
-    private EditText       txtUsername;
-    private EditText       txtPassword;
+    private EditText txtUsername;
+    private EditText txtPassword;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // set the title at the top of the eink screen
-        final Resources res = getResources();
-        NAME =
-                res.getText(R.string.app_name).toString()
-                        + res.getText(R.string.title_separator).toString()
-                        + res.getText(R.string.settings_title).toString();
-        // get ,essages for invalid credentials from strings
-        invalid = res.getTextArray(R.array.invalid_credentials);
-        setContentView(R.layout.settings);
-        final InputMethodManager imm =
-                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        // get the buttons
-        txtUsername = (EditText) findViewById(R.id.username);
-        txtPassword = (EditText) findViewById(R.id.password);
-        // set listeners
-        txtUsername.setOnKeyListener(credentialsListener);
-        txtPassword.setOnKeyListener(credentialsListener);
-        // set credentials from Settings
-        final Settings settings = Settings.getSettings();
-        txtUsername.setText(settings.getUsername());
-        txtPassword.setText(settings.getPassword());
+	super.onCreate(savedInstanceState);
+	// set the title at the top of the eink screen
+	final Resources res = getResources();
+	NAME = res.getText(R.string.app_name).toString()
+		+ res.getText(R.string.title_separator).toString()
+		+ res.getText(R.string.settings_title).toString();
+	// get messages for invalid credentials from strings
+	invalid = res.getTextArray(R.array.invalid_credentials);
+	setContentView(R.layout.settings);
+	final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+	imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+	// get the buttons
+	txtUsername = (EditText) findViewById(R.id.username);
+	txtPassword = (EditText) findViewById(R.id.password);
+	// set listeners
+	txtUsername.setOnKeyListener(credentialsListener);
+	txtPassword.setOnKeyListener(credentialsListener);
+	// set credentials from Settings
+	final Settings settings = Settings.getSettings();
+	txtUsername.setText(settings.getUsername());
+	txtPassword.setText(settings.getPassword());
+
+	// spiner for selecting refresh times
+	// Spinner refresh = (Spinner) findViewById(R.id.refresh_time);
+	// ArrayAdapter adapter = ArrayAdapter.createFromResource(
+	// this, R.array.refresh_times, android.R.layout.simple_spinner_item);
+	// adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	// refresh.setAdapter(adapter);
     }
 
     /**
@@ -84,83 +92,81 @@ public class SettingsActivity extends nookBaseSimpleActivity {
      * @see nookBaseSimpleActivity
      */
     private void processCmd(int keyCode) {
-        final String username = txtUsername.getText().toString();
-        final String password = txtPassword.getText().toString();
-        switch (keyCode) {
-        case SOFT_KEYBOARD_SUBMIT: {
-            // if submit is pressed check if it is valid,
-            // post a message if it is not or
-            // set the settings and continue if it is
-            // String auth = BasicAuthorization(username, password);
-            TextView validation = (TextView) findViewById(R.id.validation);
-            Twitter twitter =
-                    new TwitterFactory().getInstance(username, password);
-            try {
-                twitter.verifyCredentials();
+	final String username = txtUsername.getText().toString();
+	final String password = txtPassword.getText().toString();
+	switch (keyCode) {
+	case SOFT_KEYBOARD_SUBMIT: {
+	    // if submit is pressed check if it is valid,
+	    // post a message if it is not or
+	    // set the settings and continue if it is
+	    // String auth = BasicAuthorization(username, password);
+	    TextView validation = (TextView) findViewById(R.id.validation);
+	    Twitter twitter = new TwitterFactory().getInstance(username,
+		    password);
+	    try {
+		twitter.verifyCredentials();
 
-                Settings settings = Settings.getSettings();
+		Settings settings = Settings.getSettings();
 
-                settings.setUsername(username);
-                settings.setPassword(password);
+		settings.setUsername(username);
+		settings.setPassword(password);
 
-                Log.d(this.getClass().getName(), "Username is: "
-                        + settings.getUsername());
-                Log.d(this.getClass().getName(), "Password is: "
-                        + settings.getPassword());
-                //FIXME icon download make download methods utils static
-//                settings.setIcon(TimelineActivity.downloadFile(twitter
-//                        .showUser(username).getProfileImageURL()));
-                finish();
+		Log.d(TAG, "Username is: "
+			+ settings.getUsername());
+		Log.d(TAG, "Password is: "
+			+ settings.getPassword());
+		settings.setIcon(Utilities.downloadFile(twitter.showUser(
+			username).getProfileImageURL()));
+		finish();
 
-            } catch (TwitterException excep) {
-                validation.setText(selectRandomMessage());
-                InputMethodManager imm =
-                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+	    } catch (TwitterException excep) {
+		validation.setText(selectRandomMessage());
+		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-            }
-
-            break;
-        }
-        case SOFT_KEYBOARD_CANCEL: {
-            Settings settings = Settings.getSettings();
-            Log.d(this.getClass().getName(), "Username is: "
-                    + settings.getUsername());
-            Log.d(this.getClass().getName(), "Password is: "
-                    + settings.getPassword());
-            finish();
-            break;
-        }
-        }
+	    }
+	    
+	    break;
+	}
+	case SOFT_KEYBOARD_CANCEL: {
+	    Settings settings = Settings.getSettings();
+	    Log.d(TAG, "Username is: "
+		    + settings.getUsername());
+	    Log.d(TAG, "Password is: "
+		    + settings.getPassword());
+	    finish();
+	    break;
+	}
+	}
 
     }
 
     static class TextListener implements OnKeyListener {
-        private SettingsActivity settings;
+	private SettingsActivity settings;
 
-        public TextListener(SettingsActivity settings) {
-            this.settings = settings;
-        }
+	public TextListener(SettingsActivity settings) {
+	    this.settings = settings;
+	}
 
-        public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-            Log.d(this.getClass().getName(), "Received keycode: " + keyCode);
+	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+	    Log.d(TAG, "Received keycode: " + keyCode);
 
-            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                if (view instanceof EditText) {
-                    EditText editTxt = (EditText) view;
-                    // - no idea why - this is what is returned in the emulator
-                    // when
-                    // I press these keys
-                    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) { // Clear
-                        // button?
-                        editTxt.setText("");
-                    } else {
-                        settings.processCmd(keyCode);
-                    }
-                }
-            }
-            return false;
-        }
+	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+		if (view instanceof EditText) {
+		    EditText editTxt = (EditText) view;
+		    // - no idea why - this is what is returned in the emulator
+		    // when
+		    // I press these keys
+		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) { // Clear
+			// button?
+			editTxt.setText("");
+		    } else {
+			settings.processCmd(keyCode);
+		    }
+		}
+	    }
+	    return false;
+	}
     }
 
     /**
@@ -171,8 +177,8 @@ public class SettingsActivity extends nookBaseSimpleActivity {
      */
     private CharSequence selectRandomMessage() {
 
-        int index = (int) Math.round(Math.random() * invalid.length);
-        return invalid[index];
+	int index = (int) Math.round(Math.random() * invalid.length);
+	return invalid[index];
     }
 
 }

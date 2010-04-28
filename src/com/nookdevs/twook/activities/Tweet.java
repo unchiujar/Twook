@@ -18,9 +18,11 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 
 package com.nookdevs.twook.activities;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * Very simple wrapper for a tweet. Contains the message and the user icon.
@@ -31,6 +33,7 @@ import android.graphics.Bitmap;
  * @see TimelineActivity
  */
 public class Tweet {
+    private final static String TAG = Tweet.class.getName();
     /** The status message. */
     private String message;
     /** The status icon of the user  */
@@ -45,6 +48,14 @@ public class Tweet {
 
     public void setImageURL(URL imageURL) {
         this.imageURL = imageURL;
+    }
+    
+    public void setImageURL(String imageURL)  {
+        try {
+	    this.imageURL = new URL(imageURL);
+	} catch (MalformedURLException e) {
+	    Log.e(TAG, e.getMessage());
+	}
     }
 
     /**

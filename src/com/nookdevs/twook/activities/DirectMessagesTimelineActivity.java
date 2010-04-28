@@ -34,7 +34,9 @@ import com.nookdevs.twook.services.DirectMessagesDownloaderService;
  */
 
 public class DirectMessagesTimelineActivity extends TimelineActivity {
-
+    private static final String TAG = DirectMessagesDownloaderService.class.getName();
+    DirectMessagesDownloaderService service;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -49,8 +51,9 @@ public class DirectMessagesTimelineActivity extends TimelineActivity {
     protected void createListeners() {
 	btn_direct_messages_timeline.setOnClickListener(new OnClickListener() {
 	    @Override
-	    public void onClick(View viewGUGU8) {
-		Log.d(this.getClass().getName(),
+	    public void onClick(View view) {
+		service.doDownload();
+		Log.d(TAG,
 			"Direct messages timeline button clicked");
 
 	    }
@@ -60,12 +63,12 @@ public class DirectMessagesTimelineActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
-    }
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();    }
 
     @Override
     protected void setDownloadService() {
-	DirectMessagesDownloaderService service = new DirectMessagesDownloaderService();
+	service = new DirectMessagesDownloaderService();
 	intent = new Intent(this, DirectMessagesDownloaderService.class);
 	startService(intent);
 	service.setMainActivity(this);

@@ -1,5 +1,6 @@
 package com.nookdevs.twook.services;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,12 +12,13 @@ import android.util.Log;
 
 import com.nookdevs.twook.activities.Settings;
 import com.nookdevs.twook.activities.Tweet;
+import com.nookdevs.twook.utilities.Utilities;
 
 
 public class PersonalMessagesDownloaderService extends MessagesDownloaderService {
     private static final String TAG = PersonalMessagesDownloaderService.class.getName();
     @Override
-    protected List<Tweet> getTweets() {
+    protected ArrayList<Tweet> getTweets() {
         Settings settings = Settings.getSettings();
         Twitter twitter =
                 new TwitterFactory().getInstance(settings.getUsername(),
@@ -24,11 +26,11 @@ public class PersonalMessagesDownloaderService extends MessagesDownloaderService
         List<Status> statuses;
         try {
             statuses = twitter.getUserTimeline();
-            return statusToTweets(statuses);
+            return Utilities.statusToTweets(statuses);
 
         } catch (TwitterException e) {
             Log.e(TAG, e.getMessage());
-            return Collections.emptyList();
+            return (ArrayList)Collections.emptyList();
         }
     }
 

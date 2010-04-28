@@ -40,6 +40,8 @@ import com.nookdevs.twook.services.FollowedDownloaderService;
  * 
  */
 public class FollowedActivity extends TimelineActivity {
+    private static final String TAG = FollowedActivity.class.getName();
+    FollowedDownloaderService service;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,8 @@ public class FollowedActivity extends TimelineActivity {
 
 	    @Override
 	    public void onClick(View v) {
-		Log.d(this.getClass().getName(), "Followed button clicked");
+		service.doDownload();
+		Log.d(TAG, "Followed button clicked");
 
 	    }
 	});
@@ -66,12 +69,13 @@ public class FollowedActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	stopService(intent);
+	Log.d(TAG, "Trying to stop service....");
+	service.doCleanup();
     }
 
     @Override
     protected void setDownloadService() {
-	FollowedDownloaderService service = new FollowedDownloaderService();
+	service = new FollowedDownloaderService();
 	intent = new Intent(this, FollowedDownloaderService.class);
 	startService(intent);
 	service.setMainActivity(this);
