@@ -53,8 +53,8 @@ public class Settings {
     }
 
     private Settings() {
-		username = "unchiujar";
-		password = "rostopasca";
+		username = "";
+		password = "";
 		refresh = 5;
 		searches.add("nook");
 		searches.add("twook");
