@@ -7,15 +7,13 @@ import twitter4j.DirectMessage;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import android.util.Log;
 
 import com.nookdevs.twook.activities.Settings;
 import com.nookdevs.twook.activities.Tweet;
 import com.nookdevs.twook.utilities.Utilities;
 
 public class DirectMessagesDownloaderService extends MessagesDownloaderService {
-    private static final String TAG = DirectMessagesDownloaderService.class
-	    .getName();
+    /*LOG COMMENT private static final String TAG = DirectMessagesDownloaderService.class.getName(); LOG COMMENT*/
 
     @Override
     protected ArrayList<Tweet> getTweets() {
@@ -38,7 +36,7 @@ public class DirectMessagesDownloaderService extends MessagesDownloaderService {
 	    return tweets;
 
 	} catch (TwitterException e) {
-	    Log.e(TAG, e.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, e.getMessage());  LOG COMMENT*/
 	    return (ArrayList)Collections.emptyList();
 	}
     }

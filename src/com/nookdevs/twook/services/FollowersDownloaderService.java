@@ -8,15 +8,13 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
-import android.util.Log;
 
 import com.nookdevs.twook.activities.Settings;
 import com.nookdevs.twook.activities.Tweet;
 import com.nookdevs.twook.utilities.Utilities;
 
 public class FollowersDownloaderService extends MessagesDownloaderService {
-    private static final String TAG = FollowersDownloaderService.class
-	    .getName();
+    /*LOG COMMENT private static final String TAG = FollowersDownloaderService.class.getName(); LOG COMMENT*/
 
     @Override
     protected ArrayList<Tweet> getTweets() {
@@ -30,7 +28,7 @@ public class FollowersDownloaderService extends MessagesDownloaderService {
 	    return Utilities.userToTweets(followers);
 
 	} catch (TwitterException e) {
-	    Log.e(TAG, e.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, e.getMessage());  LOG COMMENT*/
 	    return (ArrayList)Collections.emptyList();
 	}
     }

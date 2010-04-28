@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +50,7 @@ import com.nookdevs.common.nookBaseActivity;
  * @see RetweetsTimelineActivity
  */
 public abstract class TimelineActivity extends nookBaseActivity {
-    private final static String TAG = TimelineActivity.class.getName();
+    /*LOG COMMENT private final static String TAG = TimelineActivity.class.getName(); LOG COMMENT*/
     private final static String SEARCH_BUTTON_MESSAGE = "Search button clicked (intent start mode)";
     /** Text listener used for scrolling and selecting in the ListView */
     private ListListener listListen = new ListListener(this);
@@ -84,20 +83,20 @@ public abstract class TimelineActivity extends nookBaseActivity {
     protected void onRestart() {
 
 	super.onRestart();
-	Log.i(TAG, "Activity restarted");
+	/*LOG COMMENT  Log.i(TAG, "Activity restarted");  LOG COMMENT*/
 	startService(intent);
     }
 
     @Override
     protected void onStart() {
 	super.onStart();
-	Log.i(TAG, "Activity started");
+	/*LOG COMMENT  Log.i(TAG, "Activity started");  LOG COMMENT*/
     }
 
     @Override
     protected void onStop() {
 	super.onStop();
-	Log.i(TAG, "Activity stopped");
+	/*LOG COMMENT  Log.i(TAG, "Activity stopped");  LOG COMMENT*/
 
 	stopService(intent);
     }
@@ -163,7 +162,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
     };
 
     public void setRetrievedTweets(ArrayList<Tweet> tweets) {
-	Log.d(TAG, "Setting new list of messages");
+	/*LOG COMMENT  Log.d(TAG, "Setting new list of messages");  LOG COMMENT*/
 	retrievedTweets = (ArrayList<Tweet>) tweets;
 	runOnUiThread(returnRes);
 
@@ -231,10 +230,10 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			TweetActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, "Tweet button clicked");
+		/*LOG COMMENT  Log.d(TAG, "Tweet button clicked");  LOG COMMENT*/
 	    }
 	});
-	Log.d(TAG, "Tweet button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Tweet button listener set");  LOG COMMENT*/
 	btn_settings.setOnClickListener(new OnClickListener() {
 
 	    @Override
@@ -243,10 +242,10 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SettingsActivity.class);
 		startActivityForResult(settingsIntent, 0);
-		Log.d(TAG, "Settings button clicked");
+		/*LOG COMMENT  Log.d(TAG, "Settings button clicked");  LOG COMMENT*/
 	    }
 	});
-	Log.d(TAG, "Settings button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Settings button listener set");  LOG COMMENT*/
 
 	btn_public_timeline.setOnClickListener(new OnClickListener() {
 
@@ -255,12 +254,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			PublicTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG,
-			"Public timeline button clicked");
+		/*LOG COMMENT Log.d(TAG, "Public timeline button clicked"); LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Public timeline button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Public timeline button listener set");  LOG COMMENT*/
 
 	btn_personal_timeline.setOnClickListener(new OnClickListener() {
 
@@ -269,13 +267,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		final Intent settingsIntent = new Intent(v.getContext(),
 			PersonalTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG,
-			"Personal timeline button clicked");
+		/*LOG COMMENT Log.d(TAG, "Personal timeline button clicked"); LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG,
-		"Personal timeline button listener set");
+	/*LOG COMMENT Log.d(TAG, "Personal timeline button listener set"); LOG COMMENT*/
 
 	btn_replies_timeline.setOnClickListener(new OnClickListener() {
 
@@ -284,14 +280,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		final Intent settingsIntent = new Intent(v.getContext(),
 			RepliesTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG,
-			"Replies timeline button clicked");
+		/*LOG COMMENT Log.d(TAG, "Replies timeline button clicked"); LOG COMMENT*/
 
 	    }
 	});
-	Log
-		.d(TAG,
-			"Replies timeline button listener set");
+	/*LOG COMMENT Log.d(TAG, "Replies timeline button listener set"); LOG COMMENT*/
 
 	btn_retweets_timeline.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -299,13 +292,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		final Intent settingsIntent = new Intent(v.getContext(),
 			RetweetsTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG,
-			"Retweets timeline button clicked");
+		/*LOG COMMENT Log.d(TAG, "Retweets timeline button clicked"); LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG,
-		"Retweets timeline button listener set");
+	/*LOG COMMENT Log.d(TAG, "Retweets timeline button listener set"); LOG COMMENT*/
 
 	btn_direct_messages_timeline.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -313,13 +304,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			DirectMessagesTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG,
-			"Direct messages timeline button clicked");
+		/*LOG COMMENT Log.d(TAG, "Direct messages timeline button clicked"); LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG,
-		"Direct messages timeline button listener set");
+	/*LOG COMMENT Log.d(TAG, "Direct messages timeline button listener set"); LOG COMMENT*/
 
 	btn_followers.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -327,11 +316,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			FollowersActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, "Followers button clicked");
+		/*LOG COMMENT  Log.d(TAG, "Followers button clicked");  LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Followers button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Followers button listener set");  LOG COMMENT*/
 
 	btn_followed.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -339,12 +328,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			FollowedActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG,
-			"Followed users button clicked");
+		/*LOG COMMENT Log.d(TAG, "Followed users button clicked"); */
 
 	    }
 	});
-	Log.d(TAG, "Followed users button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Followed users button listener set");  LOG COMMENT*/
 
 	btn_home_timeline.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -352,13 +340,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			HomeTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log
-			.d(TAG,
-				"Home timeline button clicked");
+		/*LOG COMMENT Log.d(TAG, "Home timeline button clicked"); LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Home timeline button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Home timeline button listener set");  LOG COMMENT*/
 
 	btn_search1.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -366,11 +352,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Search button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Search button listener set");  LOG COMMENT*/
 
 	btn_search2.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -378,11 +364,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Search button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Search button listener set");  LOG COMMENT*/
 
 	btn_search3.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -390,11 +376,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Search button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Search button listener set");  LOG COMMENT*/
 
 	btn_search4.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -402,11 +388,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			SearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Search button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Search button listener set");  LOG COMMENT*/
 
 	btn_favorites.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -414,11 +400,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			FavoriteTimelineActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, "Favorites button clicked.");
+		/*LOG COMMENT  Log.d(TAG, "Favorites button clicked.");  LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "Favorite button listener set");
+	/*LOG COMMENT  Log.d(TAG, "Favorite button listener set");  LOG COMMENT*/
 
 	btn_search_users.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -426,11 +412,11 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		Intent settingsIntent = new Intent(v.getContext(),
 			UserSearchActivity.class);
 		startActivity(settingsIntent);
-		Log.d(TAG, "User search button clicked.");
+		/*LOG COMMENT  Log.d(TAG, "User search button clicked.");  LOG COMMENT*/
 
 	    }
 	});
-	Log.d(TAG, "User search listener set");
+	/*LOG COMMENT  Log.d(TAG, "User search listener set");  LOG COMMENT*/
 
     }
 
@@ -444,7 +430,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	}
 
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(TAG, "Received keycode: " + keyCode);
+	    /*LOG COMMENT  Log.d(TAG, "Received keycode: " + keyCode);  LOG COMMENT*/
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP
 		    && keyCode == NOOK_PAGE_UP_KEY_LEFT) {
 		ListView list = (ListView) findViewById(android.R.id.list);
@@ -453,16 +439,14 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		list.scrollBy(0,
 			list.getScrollY() >= list.getMaxScrollAmount() ? -list
 				.getMaxScrollAmount() : -list.getScrollY());
-		Log.d(TAG, "Changing scroll, "
-			+ "max is :" + list.getMaxScrollAmount()
-			+ " current is : " + list.getScrollY());
+		/* LOG COMMENT Log.d(TAG, "Changing scroll, "+ "max is :" + list.getMaxScrollAmount()	+ " current is : " + list.getScrollY()); LOG COMMENT*/
 	    }
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP
 		    && keyCode == NOOK_PAGE_DOWN_KEY_LEFT) {
 		ListView // list.getSelectedView().setBackgroundColor(30);
 		list = (ListView) findViewById(android.R.id.list);
 		list.scrollBy(0, list.getMaxScrollAmount());
-		Log.d(TAG, "Changing selection ");
+		/*LOG COMMENT  Log.d(TAG, "Changing selection ");  LOG COMMENT*/
 	    }
 
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP
@@ -470,8 +454,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		ListView list = (ListView) findViewById(android.R.id.list);
 		list.setSelection(5);
 		list.setSelected(true);
-		Log.d(TAG, "Selected :"
-			+ list.getSelectedItemPosition());
+		/*LOG COMMENT Log.d(TAG, "Selected :" + list.getSelectedItemPosition()); LOG COMMENT*/
 
 	    }
 
@@ -480,8 +463,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		ListView list = (ListView) findViewById(android.R.id.list);
 		list.setSelection(9);
 		list.setSelected(true);
-		Log.d(TAG, "Selected :"
-			+ list.getSelectedItemPosition());
+		/*LOG COMMENT Log.d(TAG, "Selected :"	+ list.getSelectedItemPosition()); LOG COMMENT*/
 	    }
 
 	    return false;
@@ -491,14 +473,14 @@ public abstract class TimelineActivity extends nookBaseActivity {
     @Override
     public void onPause() {
 	super.onPause();
-	Log.i(TAG, "Activity paused");
+	/*LOG COMMENT  Log.i(TAG, "Activity paused");  LOG COMMENT*/
 	stopDownloadService();
     }
 
     @Override
     protected void onDestroy() {
 	super.onDestroy();
-	Log.i(TAG, "Activity destroyed");
+	/*LOG COMMENT  Log.i(TAG, "Activity destroyed");  LOG COMMENT*/
 	stopDownloadService();
 
     }

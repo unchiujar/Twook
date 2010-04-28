@@ -10,7 +10,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.nookdevs.twook.activities.TimelineActivity;
 import com.nookdevs.twook.activities.Tweet;
@@ -20,7 +19,7 @@ import com.nookdevs.twook.utilities.Utilities;
 
 public abstract class MessagesDownloaderService extends Service {
     private ImageCache cache;
-    private static final String TAG = MessagesDownloaderService.class.getName();
+    /*LOG COMMENT  private static final String TAG = MessagesDownloaderService.class.getName();  LOG COMMENT*/
     private Timer timer = new Timer();
     private final long INTERVAL = 30000;
     private ArrayList<Tweet> timeline;
@@ -28,11 +27,9 @@ public abstract class MessagesDownloaderService extends Service {
 
     public void doDownload() {
 	try {
-	    Log.d(TAG, "Timer step: " + INTERVAL);
+	    /*LOG COMMENT  Log.d(TAG, "Timer step: " + INTERVAL);  LOG COMMENT*/
 
-	    Log
-		    .d(TAG, "Got tweets, trying "
-			    + "to set them on the activity...");
+	    /*LOG COMMENT Log.d(TAG, "Got tweets, trying to set them on the activity..."); LOG COMMENT*/
 	    try {
 		timeline = getTweets();
 		mainActivity.setRetrievedTweets(timeline);
@@ -43,11 +40,11 @@ public abstract class MessagesDownloaderService extends Service {
 		// FIXME necessary ?
 
 	    } catch (Exception excep) {
-		Log.d("Error setting tweets", excep.getMessage());
+		/*LOG COMMENT  Log.d("Error setting tweets", excep.getMessage());  LOG COMMENT*/
 	    }
-	    Log.d(TAG, "Update done");
+	    /*LOG COMMENT  Log.d(TAG, "Update done");  LOG COMMENT*/
 	} catch (Exception e) {
-	    Log.e(TAG, e.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, e.getMessage());  LOG COMMENT*/
 	}
     }
 
@@ -59,7 +56,7 @@ public abstract class MessagesDownloaderService extends Service {
     }
 
     public void startDownload() {
-	Log.d(TAG, "Service started.");
+	/*LOG COMMENT  Log.d(TAG, "Service started.");  LOG COMMENT*/
 	DownloadTimer timerTask = new DownloadTimer();
 	timer.scheduleAtFixedRate(timerTask, 0, INTERVAL);
 
@@ -71,13 +68,12 @@ public abstract class MessagesDownloaderService extends Service {
 
 	    final String username = tweet.getUsername();
 	    if (!cache.isCached(username)) {
-		Log.d(TAG, "Inserting icon in cache for user " + username);
+		/*LOG COMMENT  Log.d(TAG, "Inserting icon in cache for user " + username);  LOG COMMENT*/
 		final URL imageURL = tweet.getImageURL();
 		Runnable download = new Runnable() {
 		    @Override
 		    public void run() {
-			Log.d(TAG, "Started thread with username: " + username
-				+ " and image URL " + imageURL);
+			/* LOG COMMENT Log.d(TAG, "Started thread with username: " + username + " and image URL " + imageURL); LOG COMMENT*/
 			// FIXME why ?
 			if (imageURL != null) {
 			    Bitmap icon = Utilities.downloadFile(imageURL);
@@ -95,8 +91,7 @@ public abstract class MessagesDownloaderService extends Service {
 		Thread thread = new Thread(download);
 		thread.start();
 	    } else {
-		Log.d(TAG, "Image already exists" + " in cache for user "
-			+ username);
+		/*LOG COMMENT Log.d(TAG, "Image already exists" + " in cache for user "+ username); LOG COMMENT*/
 		tweet.setImage(cache.getImage(username));
 	    }
 	}
@@ -106,7 +101,7 @@ public abstract class MessagesDownloaderService extends Service {
 
     public void setMainActivity(TimelineActivity activity) {
 	mainActivity = activity;
-	Log.d(TAG, "Activity set." + mainActivity);
+	/*LOG COMMENT  Log.d(TAG, "Activity set." + mainActivity);  LOG COMMENT*/
     }
 
     public Activity getMainActivity() {
@@ -116,7 +111,7 @@ public abstract class MessagesDownloaderService extends Service {
     @Override
     public void onCreate() {
 	super.onCreate();
-	Log.d(TAG, "Service created");
+	/*LOG COMMENT  Log.d(TAG, "Service created");  LOG COMMENT*/
 
 	cache = MemoryImageCache.getInstance();
 
@@ -141,7 +136,7 @@ public abstract class MessagesDownloaderService extends Service {
     @Override
     public void onDestroy() {
 	super.onDestroy();
-	Log.d(TAG, "############## Service destroyed");
+	/*LOG COMMENT  Log.d(TAG, "############## Service destroyed");  LOG COMMENT*/
 	doCleanup();
 	//
 	// if (MAIN_ACTIVITY != null)
@@ -150,13 +145,13 @@ public abstract class MessagesDownloaderService extends Service {
 
     public void doCleanup() {
 	try {
-	    Log.d(TAG, "Do cleanup called, trying to stop timer...");
+	    /*LOG COMMENT  Log.d(TAG, "Do cleanup called, trying to stop timer...");  LOG COMMENT*/
 	    timer.cancel();
 	    mainActivity = null;
 	    timeline = null;
 	    timer = null;
 	    stopSelf();
-	    Log.d(TAG, "Cleanup done");
+	    /*LOG COMMENT  Log.d(TAG, "Cleanup done");  LOG COMMENT*/
 	} catch (Exception excep) {
 	    excep.printStackTrace();
 	}

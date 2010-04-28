@@ -24,7 +24,6 @@ import twitter4j.TwitterFactory;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -47,7 +46,7 @@ import com.nookdevs.common.nookBaseSimpleActivity;
  * 
  */
 public class TweetActivity extends nookBaseSimpleActivity {
-    private final static String TAG = TweetActivity.class.getName();
+    /*LOG COMMENT private final static String TAG = TweetActivity.class.getName(); LOG COMMENT*/
     private ProgressDialog postProgress = null;
     private final int WAIT_TIME = 200;
     private final int TWEET_LENGTH = 140;
@@ -91,9 +90,9 @@ public class TweetActivity extends nookBaseSimpleActivity {
 	    twitter.updateStatus(tweet);
 	    Thread.sleep(WAIT_TIME);
 	} catch (InterruptedException excep) {
-	    Log.e(TAG, "Thread has been interrupted " + excep.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, "Thread has been interrupted " + excep.getMessage());  LOG COMMENT*/
 	} catch (TwitterException excep) {
-	    Log.e(TAG, "Twitter exception" + excep.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, "Twitter exception" + excep.getMessage());  LOG COMMENT*/
 	}
 
     }
@@ -104,7 +103,7 @@ public class TweetActivity extends nookBaseSimpleActivity {
 
 	    EditText tweet = (EditText) findViewById(R.id.tweet_message);
 
-	    Log.d(TAG, "Message is : " + tweet.getText().toString());
+	    /*LOG COMMENT  Log.d(TAG, "Message is : " + tweet.getText().toString());  LOG COMMENT*/
 	    if (left >= 0) {
 		postTweetThread = new Thread(null, postTweet,
 			"MagentoBackground");
@@ -112,7 +111,7 @@ public class TweetActivity extends nookBaseSimpleActivity {
 		postProgress = ProgressDialog.show(TweetActivity.this,
 			"Please wait...", "Updating status...", true);
 
-		Log.d(TAG, "Tweet posted");
+		/*LOG COMMENT  Log.d(TAG, "Tweet posted");  LOG COMMENT*/
 		finish();
 	    } else {
 		TextView tweetLength = (TextView) findViewById(R.id.tweet_length);
@@ -137,7 +136,7 @@ public class TweetActivity extends nookBaseSimpleActivity {
 	}
 
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(TAG, "Received keycode: " + keyCode);
+	    /*LOG COMMENT  Log.d(TAG, "Received keycode: " + keyCode);  LOG COMMENT*/
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
 		if (view instanceof EditText) {
 		    EditText editTxt = (EditText) view;

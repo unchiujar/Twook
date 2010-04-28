@@ -106,7 +106,7 @@ public class nookBaseActivity extends ListActivity {
                 screenLock.release();
             }
         } catch (Exception ex) {
-            Log.e(LOGTAG, "exception in onPause - ", ex);
+            /*LOG COMMENT  Log.e(LOGTAG, "exception in onPause - ", ex);  LOG COMMENT*/
         }
     }
     
@@ -183,7 +183,7 @@ public class nookBaseActivity extends ListActivity {
             values.put("data", data);
             getContentResolver().insert(Uri.parse(READING_NOW_URL), values);
         } catch (Exception ex) {
-            Log.e(LOGTAG, "Exception while updating reading now data - ", ex);
+            /*LOG COMMENT  Log.e(LOGTAG, "Exception while updating reading now data - ", ex);  LOG COMMENT*/
         }
     }
     
@@ -261,14 +261,14 @@ public class nookBaseActivity extends ListActivity {
                 }
                 c.moveToNext();
                 m_WallPaper = c.getString(0);
-                Log.d(LOGTAG, "m_Wallpaper = " + m_WallPaper);
+                /*LOG COMMENT  Log.d(LOGTAG, "m_Wallpaper = " + m_WallPaper);  LOG COMMENT*/
                 
             }
             c.close();
             c.deactivate();
             
         } catch (Exception ex) {
-            Log.e(LOGTAG, "Error reading system settings... keeping hardcoded values");
+            /*LOG COMMENT  Log.e(LOGTAG, "Error reading system settings... keeping hardcoded values");  LOG COMMENT*/
             ex.printStackTrace();
         }
     }
@@ -292,7 +292,7 @@ public class nookBaseActivity extends ListActivity {
 //            }
 //            if (connection) return true;
 //        } catch (Exception ex) {
-//            Log.e("BNBooks", "Exception while checking for connection", ex);
+//            /*LOG COMMENT  Log.e("BNBooks", "Exception while checking for connection", ex);  LOG COMMENT*/
 //        }
 //        if (lock != null && lock.isHeld()) lock.release();
 //        return false;

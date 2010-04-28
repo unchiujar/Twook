@@ -8,14 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 /**
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * 
  */
 public class MemoryImageCache implements ImageCache {
-    private static final String TAG = MemoryImageCache.class.getName();
+    /*LOG COMMENT  private static final String TAG = MemoryImageCache.class.getName();  LOG COMMENT*/
     private static final int MAX_SIZE = 300;
     private static MemoryImageCache instance;
     private Map<String, Bitmap> imageCache = Collections
@@ -50,7 +49,7 @@ public class MemoryImageCache implements ImageCache {
     @Override
     public void insertImage(String username, Bitmap icon) {
 	int cacheSize = imageCache.size();
-	Log.d(TAG, "Cache size is :" + imageCache.size());
+	/*LOG COMMENT  Log.d(TAG, "Cache size is :" + imageCache.size());  LOG COMMENT*/
 	if (cacheSize > MAX_SIZE) {
 	    imageCache.clear();
 	}

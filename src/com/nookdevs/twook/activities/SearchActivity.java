@@ -21,7 +21,6 @@ package com.nookdevs.twook.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,7 +46,7 @@ import com.nookdevs.twook.services.SearchService;
 
 public class SearchActivity extends TimelineActivity {
     /** Class name used in logging statements */
-    private static final String TAG = SearchActivity.class.getName();
+    /*LOG COMMENT  private static final String TAG = SearchActivity.class.getName();  LOG COMMENT*/
     private static final String SEARCH_BUTTON_MESSAGE = "Search button clicked (start search mode)";
     private int searchNumber = 0;
     private String currentSearch = "nook";
@@ -94,7 +93,7 @@ public class SearchActivity extends TimelineActivity {
 		textSearch.setText(search1);
 		currentSearch = search1;
 		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
@@ -117,7 +116,7 @@ public class SearchActivity extends TimelineActivity {
 		textSearch.setText(search2);
 		currentSearch = search2;
 		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
@@ -140,7 +139,7 @@ public class SearchActivity extends TimelineActivity {
 		textSearch.setText(search3);
 		currentSearch = search3;
 		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
@@ -164,7 +163,7 @@ public class SearchActivity extends TimelineActivity {
 		textSearch.setText(search4);
 		currentSearch = search4;
 		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
@@ -201,7 +200,7 @@ public class SearchActivity extends TimelineActivity {
 	 * android.view.KeyEvent)
 	 */
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(TAG, "Received keycode: " + keyCode);
+	    /*LOG COMMENT  Log.d(TAG, "Received keycode: " + keyCode);  LOG COMMENT*/
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
 		if (view instanceof EditText) {
 		    final EditText editTxt = (EditText) view;
@@ -242,7 +241,7 @@ public class SearchActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
+	/*LOG COMMENT  Log.d(TAG, "Trying to stop service....");  LOG COMMENT*/
 	service.doCleanup();    }
 
     @Override

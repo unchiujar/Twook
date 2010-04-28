@@ -22,14 +22,11 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nookdevs.common.nookBaseSimpleActivity;
@@ -44,7 +41,7 @@ import com.nookdevs.twook.utilities.Utilities;
  * @see Settings
  */
 public class SettingsActivity extends nookBaseSimpleActivity {
-    private final static String TAG = SettingsActivity.class.getName();
+    /*LOG COMMENT private final static String TAG = SettingsActivity.class.getName(); LOG COMMENT*/
     private TextListener credentialsListener = new TextListener(this);
     /** Holds the messages displayed when the entered credentials are invalid. */
     private CharSequence[] invalid;
@@ -111,10 +108,8 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 		settings.setUsername(username);
 		settings.setPassword(password);
 
-		Log.d(TAG, "Username is: "
-			+ settings.getUsername());
-		Log.d(TAG, "Password is: "
-			+ settings.getPassword());
+		/*LOG COMMENT Log.d(TAG, "Username is: " + settings.getUsername()); LOG COMMENT*/
+		/*LOG COMMENT Log.d(TAG, "Password is: " + settings.getPassword()); LOG COMMENT*/
 		settings.setIcon(Utilities.downloadFile(twitter.showUser(
 			username).getProfileImageURL()));
 		finish();
@@ -130,10 +125,8 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 	}
 	case SOFT_KEYBOARD_CANCEL: {
 	    Settings settings = Settings.getSettings();
-	    Log.d(TAG, "Username is: "
-		    + settings.getUsername());
-	    Log.d(TAG, "Password is: "
-		    + settings.getPassword());
+	    /*LOG COMMENT Log.d(TAG, "Username is: " + settings.getUsername()); LOG COMMENT*/
+	    /*LOG COMMENT Log.d(TAG, "Password is: " + settings.getPassword()); LOG COMMENT*/
 	    finish();
 	    break;
 	}
@@ -149,7 +142,7 @@ public class SettingsActivity extends nookBaseSimpleActivity {
 	}
 
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(TAG, "Received keycode: " + keyCode);
+	    /*LOG COMMENT  Log.d(TAG, "Received keycode: " + keyCode);  LOG COMMENT*/
 
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
 		if (view instanceof EditText) {

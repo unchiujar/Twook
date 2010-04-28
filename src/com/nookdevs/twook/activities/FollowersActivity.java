@@ -21,7 +21,6 @@ package com.nookdevs.twook.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -40,7 +39,7 @@ import com.nookdevs.twook.services.FollowersDownloaderService;
  * 
  */
 public class FollowersActivity extends TimelineActivity {
-    private static final String TAG = FollowersActivity.class.getName();
+    /*LOG COMMENT  private static final String TAG = FollowersActivity.class.getName();  LOG COMMENT*/
     FollowersDownloaderService service;
 
     @Override
@@ -60,8 +59,7 @@ public class FollowersActivity extends TimelineActivity {
 	    @Override
 	    public void onClick(View v) {
 		service.doDownload();
-		Log.d(TAG,
-			"Followers timeline button clicked");
+		/*LOG COMMENT Log.d(TAG, "Followers timeline button clicked");  LOG COMMENT*/
 
 	    }
 	});
@@ -70,7 +68,7 @@ public class FollowersActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
+	/*LOG COMMENT  Log.d(TAG, "Trying to stop service....");  LOG COMMENT*/
 	service.doCleanup();
     }
 

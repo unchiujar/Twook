@@ -21,7 +21,6 @@ package com.nookdevs.twook.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -40,7 +39,7 @@ import com.nookdevs.twook.services.PublicMessagesDownloaderService;
  */
 
 public class PublicTimelineActivity extends TimelineActivity {
-    private final static String TAG = PublicTimelineActivity.class.getName();
+    /*LOG COMMENT private final static String TAG = PublicTimelineActivity.class.getName(); LOG COMMENT*/
     PublicMessagesDownloaderService service;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class PublicTimelineActivity extends TimelineActivity {
 	    @Override
 	    public void onClick(View v) {
 		service.doDownload();
-		Log.d(TAG, "Public timeline button clicked");
+		/*LOG COMMENT  Log.d(TAG, "Public timeline button clicked");  LOG COMMENT*/
 	    }
 	});
 
@@ -68,7 +67,7 @@ public class PublicTimelineActivity extends TimelineActivity {
     
     @Override
     protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
+	/*LOG COMMENT  Log.d(TAG, "Trying to stop service....");  LOG COMMENT*/
 	service.doCleanup();
     }
 
@@ -77,7 +76,7 @@ public class PublicTimelineActivity extends TimelineActivity {
 	service = new PublicMessagesDownloaderService();
 	intent = new Intent(this, PublicMessagesDownloaderService.class);
 	startService(intent);
-	Log.d(TAG, "Service started, setting main activity");
+	/*LOG COMMENT  Log.d(TAG, "Service started, setting main activity");  LOG COMMENT*/
 	service.setMainActivity(this);
 	service.startDownload();
 

@@ -21,7 +21,6 @@ package com.nookdevs.twook.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,7 +45,7 @@ import com.nookdevs.twook.services.UserSearchService;
 
 public class UserSearchActivity extends TimelineActivity {
     /** Class name used in logging statements */
-    private static final String TAG = UserSearchActivity.class.getName();
+    /*LOG COMMENT  private static final String TAG = UserSearchActivity.class.getName();  LOG COMMENT*/
     private static final String SEARCH_BUTTON_MESSAGE = "Find users button clicked (start search mode)";
 
     private TextEditListener softKeyListener = new TextEditListener(this);
@@ -87,7 +86,7 @@ public class UserSearchActivity extends TimelineActivity {
 	    public void onClick(View v) {
 		textSearch.setText(searchTerm);
 		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+		/*LOG COMMENT  Log.d(TAG, SEARCH_BUTTON_MESSAGE);  LOG COMMENT*/
 
 	    }
 	});
@@ -123,7 +122,7 @@ public class UserSearchActivity extends TimelineActivity {
 	 * android.view.KeyEvent)
 	 */
 	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(TAG, "Received keycode: " + keyCode);
+	    /*LOG COMMENT  Log.d(TAG, "Received keycode: " + keyCode);  LOG COMMENT*/
 	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
 		if (view instanceof EditText) {
 		    final EditText editTxt = (EditText) view;
@@ -144,7 +143,7 @@ public class UserSearchActivity extends TimelineActivity {
 
     @Override
     protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
+	/*LOG COMMENT  Log.d(TAG, "Trying to stop service....");  LOG COMMENT*/
 	service.doCleanup();
     }
 

@@ -22,7 +22,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 /**
  * Very simple wrapper for a tweet. Contains the message and the user icon.
@@ -33,7 +32,7 @@ import android.util.Log;
  * @see TimelineActivity
  */
 public class Tweet {
-    private final static String TAG = Tweet.class.getName();
+    /*LOG COMMENT private final static String TAG = Tweet.class.getName(); LOG COMMENT*/
     /** The status message. */
     private String message;
     /** The status icon of the user  */
@@ -54,7 +53,7 @@ public class Tweet {
         try {
 	    this.imageURL = new URL(imageURL);
 	} catch (MalformedURLException e) {
-	    Log.e(TAG, e.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, e.getMessage());  LOG COMMENT*/
 	}
     }
 

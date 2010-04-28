@@ -10,10 +10,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 public class DBhelper {
-    private static final String TAG = DBhelper.class.getName();
+    /*LOG COMMENT  private static final String TAG = DBhelper.class.getName();  LOG COMMENT*/
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "username";
     public static final String KEY_IMG = "icon";
@@ -44,9 +43,9 @@ public class DBhelper {
 	public void onCreate(SQLiteDatabase db) {
 	    try {
 		db.execSQL(CREATE_ICONS_TABLE);
-		 Log.d(TAG, "Database created");
+		 /*LOG COMMENT  Log.d(TAG, "Database created");  LOG COMMENT*/
 	    } catch (SQLException excep) {
-		Log.e(TAG, excep.getMessage());
+		/*LOG COMMENT  Log.e(TAG, excep.getMessage());  LOG COMMENT*/
 	    }
 	}
 
@@ -54,7 +53,7 @@ public class DBhelper {
 	    try {
 		db.execSQL("DROP TABLE IF EXISTS " + ICONS_TABLE);
 	    } catch (SQLException excep) {
-		Log.e(TAG, excep.getMessage());
+		/*LOG COMMENT  Log.e(TAG, excep.getMessage());  LOG COMMENT*/
 	    }
 	    onCreate(db);
 	}
@@ -88,35 +87,35 @@ public class DBhelper {
 	    cv.put(KEY_NAME, row.getName());
 	    mDb.insert(ICONS_TABLE, null, cv);
 	} catch (SQLException excep) {
-	    Log.e(TAG, excep.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, excep.getMessage());  LOG COMMENT*/
 	}
     }
 
     public Row getFirstRowFromDB(String username) {
 	Cursor cur = null;
 	try {
-		Log.d(TAG, "Opened database");
+		/*LOG COMMENT  Log.d(TAG, "Opened database");  LOG COMMENT*/
 //
 //	    cur = mDb.query(true, ICONS_TABLE,
 //		    new String[] {KEY_IMG}, "username="
 //			    + username , null, null, null, null, "1");
 
-		Log.d(TAG, "Got cursor");
+		/*LOG COMMENT  Log.d(TAG, "Got cursor");  LOG COMMENT*/
 
 	    if (cur.moveToFirst()) {
-		Log.d(TAG, "Move to first entry");
+		/*LOG COMMENT  Log.d(TAG, "Move to first entry");  LOG COMMENT*/
 
 		byte[] blob = cur.getBlob(cur.getColumnIndex(KEY_IMG));
 		Bitmap bmp = BitmapFactory
 			.decodeByteArray(blob, 0, blob.length);
 		String name = cur.getString(cur.getColumnIndex(KEY_NAME));
 		cur.close();
-		Log.d(TAG, "Closed cursor");
+		/*LOG COMMENT  Log.d(TAG, "Closed cursor");  LOG COMMENT*/
 
 		return new Row(bmp, name);
 	    }
 	} catch (Exception excep) {
-	    Log.e(TAG, excep.getMessage());
+	    /*LOG COMMENT  Log.e(TAG, excep.getMessage());  LOG COMMENT*/
 	} 
 	finally {
 	    cur.close();
@@ -126,9 +125,9 @@ public class DBhelper {
     }
 
     public Bitmap getImage(String username) {
-	Log.d(TAG, "Opened database");
+	/*LOG COMMENT  Log.d(TAG, "Opened database");  LOG COMMENT*/
 	Row row = getFirstRowFromDB(username);
-	Log.d(TAG, "Closed database");
+	/*LOG COMMENT  Log.d(TAG, "Closed database");  LOG COMMENT*/
 	return row.getBitmap();
     }
 

@@ -13,12 +13,11 @@ import twitter4j.Status;
 import twitter4j.User;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.nookdevs.twook.activities.Tweet;
 
 public class Utilities {
-    private static final String TAG = Utilities.class.getName();
+    /*LOG COMMENT  private static final String TAG = Utilities.class.getName();  LOG COMMENT*/
 
     /**
      * Utility method used for transforming a List of Tweet from twitter4j into
@@ -29,7 +28,7 @@ public class Utilities {
      * @return a List of Tweet to be used with the TweetAdapter
      */
     public static ArrayList<Tweet> tweetsToTweets(List<twitter4j.Tweet> messages) {
-	Log.d(TAG, "Transforming Statuses " + "to Tweets :" + messages.size());
+	/*LOG COMMENT  Log.d(TAG, "Transforming Statuses " + "to Tweets :" + messages.size());  LOG COMMENT*/
 	ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	Tweet tweet;
 
@@ -40,10 +39,9 @@ public class Utilities {
 	    tweet.setImageURL(message.getProfileImageUrl());
 	    tweet.setImage(null);
 	    tweets.add(tweet);
-	    Log.v(TAG, "Added : " + tweet.getUsername() + "- "
-		    + tweet.getMessage());
+	    /*LOG COMMENT  Log.v(TAG, "Added : " + tweet.getUsername()   + "- " + tweet.getMessage());LOG COMMENT*/
 	}
-	Log.d(TAG, "Tweets to tweets transformation done.");
+	/*LOG COMMENT  Log.d(TAG, "Tweets to tweets transformation done.");  LOG COMMENT*/
 	return tweets;
     }
 
@@ -56,7 +54,7 @@ public class Utilities {
      * @return a List of Tweet to be used with the TweetAdapter
      */
     public static ArrayList<Tweet> statusToTweets(List<Status> messages) {
-	Log.d(TAG, "Transforming Statuses " + "to Tweets :" + messages.size());
+	/*LOG COMMENT  Log.d(TAG, "Transforming Statuses " + "to Tweets :" + messages.size());  LOG COMMENT*/
 	ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	Tweet tweet;
 	for (Status message : messages) {
@@ -65,10 +63,9 @@ public class Utilities {
 	    tweet.setMessage(message.getText());
 	    tweet.setImageURL(message.getUser().getProfileImageURL());
 	    tweets.add(tweet);
-	    Log.v(TAG, "Added : " + tweet.getUsername() + "- "
-		    + tweet.getMessage());
+	    /*LOG COMMENT  Log.v(TAG, "Added : " + tweet.getUsername()  + "- " + tweet.getMessage()); LOG COMMENT*/
 	}
-	Log.d(TAG, "Statuses to tweets transformation done.");
+	/*LOG COMMENT  Log.d(TAG, "Statuses to tweets transformation done.");  LOG COMMENT*/
 	return tweets;
     }
 
@@ -91,10 +88,10 @@ public class Utilities {
 		tweet.setImageURL(user.getProfileImageURL());
 		tweet.setUsername(user.getName());
 		tweets.add(tweet);
-		Log.v(TAG, "tweet " + tweet.getMessage());
+		/*LOG COMMENT  Log.v(TAG, "tweet " + tweet.getMessage());  LOG COMMENT*/
 	    } catch (Exception excep) {
 		excep.printStackTrace();
-		Log.e(TAG, excep.getMessage());
+		/*LOG COMMENT  Log.e(TAG, excep.getMessage());  LOG COMMENT*/
 	    }
 	}
 	return tweets;
