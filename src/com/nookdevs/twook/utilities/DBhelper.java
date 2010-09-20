@@ -96,10 +96,10 @@ public class DBhelper {
 	Cursor cur = null;
 	try {
 		Log.d(TAG, "Opened database");
-//
-//	    cur = mDb.query(true, ICONS_TABLE,
-//		    new String[] {KEY_IMG}, "username="
-//			    + username , null, null, null, null, "1");
+
+	    cur = mDb.query(true, ICONS_TABLE,
+		    new String[] {KEY_IMG}, "username="
+			    + username , null, null, null, null, "1");
 
 		Log.d(TAG, "Got cursor");
 

@@ -34,44 +34,38 @@ import com.nookdevs.twook.services.DirectMessagesDownloaderService;
  */
 
 public class DirectMessagesTimelineActivity extends TimelineActivity {
-    private static final String TAG = DirectMessagesDownloaderService.class.getName();
-    DirectMessagesDownloaderService service;
-    
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	// set the title at the top of the eink screen
-	final Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.direct_messages).toString();
-    }
+	private static final String TAG = DirectMessagesDownloaderService.class
+			.getName();
 
-    @Override
-    protected void createListeners() {
-	btn_direct_messages_timeline.setOnClickListener(new OnClickListener() {
-	    @Override
-	    public void onClick(View view) {
-		service.doDownload();
-		Log.d(TAG,
-			"Direct messages timeline button clicked");
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// set the title at the top of the eink screen
+		final Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.direct_messages).toString();
+	}
 
-	    }
-	});
+	@Override
+	protected void createListeners() {
+		btn_direct_messages_timeline.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				service.doDownload();
+				Log.d(TAG, "Direct messages timeline button clicked");
 
-    }
+			}
+		});
 
-    @Override
-    protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
-	service.doCleanup();    }
+	}
 
-    @Override
-    protected void setDownloadService() {
-	service = new DirectMessagesDownloaderService();
-	intent = new Intent(this, DirectMessagesDownloaderService.class);
-	startService(intent);
-	service.setMainActivity(this);
-	service.startDownload();
-    }
+	@Override
+	protected void setDownloadService() {
+		service = new DirectMessagesDownloaderService();
+		intent = new Intent(this, DirectMessagesDownloaderService.class);
+		startService(intent);
+		service.setMainActivity(this);
+		service.startDownload();
+	}
 }

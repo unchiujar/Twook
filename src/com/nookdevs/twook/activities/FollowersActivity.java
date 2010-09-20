@@ -40,46 +40,38 @@ import com.nookdevs.twook.services.FollowersDownloaderService;
  * 
  */
 public class FollowersActivity extends TimelineActivity {
-    private static final String TAG = FollowersActivity.class.getName();
-    FollowersDownloaderService service;
+	private static final String TAG = FollowersActivity.class.getName();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.followers_timeline).toString();
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.followers_timeline).toString();
 
-    }
+	}
 
-    @Override
-    protected void createListeners() {
-	btn_followers.setOnClickListener(new OnClickListener() {
+	@Override
+	protected void createListeners() {
+		btn_followers.setOnClickListener(new OnClickListener() {
 
-	    @Override
-	    public void onClick(View v) {
-		service.doDownload();
-		Log.d(TAG,
-			"Followers timeline button clicked");
+			@Override
+			public void onClick(View v) {
+				service.doDownload();
+				Log.d(TAG, "Followers timeline button clicked");
 
-	    }
-	});
+			}
+		});
 
-    }
+	}
 
-    @Override
-    protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
-	service.doCleanup();
-    }
-
-    @Override
-    protected void setDownloadService() {
-	service = new FollowersDownloaderService();
-	intent = new Intent(this, FollowersDownloaderService.class);
-	startService(intent);
-	service.setMainActivity(this);
-	service.startDownload();
-    }
+	@Override
+	protected void setDownloadService() {
+		service = new FollowersDownloaderService();
+		intent = new Intent(this, FollowersDownloaderService.class);
+		startService(intent);
+		service.setMainActivity(this);
+		service.startDownload();
+	}
 }

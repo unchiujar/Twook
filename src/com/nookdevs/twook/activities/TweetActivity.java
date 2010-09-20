@@ -20,7 +20,6 @@ package com.nookdevs.twook.activities;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -47,114 +46,110 @@ import com.nookdevs.common.nookBaseSimpleActivity;
  * 
  */
 public class TweetActivity extends nookBaseSimpleActivity {
-    private final static String TAG = TweetActivity.class.getName();
-    private ProgressDialog postProgress = null;
-    private final int WAIT_TIME = 200;
-    private final int TWEET_LENGTH = 140;
-    Thread postTweetThread;
-    private Runnable postTweet;
-    private TextListener softKeyListener = new TextListener(this);
-    int left;
+	private final static String TAG = TweetActivity.class.getName();
+	private ProgressDialog postProgress = null;
+	private final int WAIT_TIME = 200;
+	private final int TWEET_LENGTH = 140;
+	Thread postTweetThread;
+	private Runnable postTweet;
+	private TextListener softKeyListener = new TextListener(this);
+	int left;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	// set the title at the top of the eink screen
-	Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.tweet_title).toString();
-	setContentView(R.layout.write_tweet);
-	InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-	imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-	EditText tweet = (EditText) findViewById(R.id.tweet_message);
-	tweet.setOnKeyListener(softKeyListener);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// set the title at the top of the eink screen
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.tweet_title).toString();
+		setContentView(R.layout.write_tweet);
+		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+		EditText tweet = (EditText) findViewById(R.id.tweet_message);
+		tweet.setOnKeyListener(softKeyListener);
 
-	postTweet = new Runnable() {
-	    @Override
-	    public void run() {
-		updateStatus();
-	    }
-	};
+		postTweet = new Runnable() {
+			@Override
+			public void run() {
+				updateStatus();
+			}
+		};
 
-    }
-
-    private void updateStatus() {
-	try {
-	    Settings settings = Settings.getSettings();
-	    EditText tweetEdit = (EditText) findViewById(R.id.tweet_message);
-	    String tweet = tweetEdit.getText().toString();
-
-	    // The factory instance is re-useable and thread safe.
-	    Twitter twitter = new TwitterFactory().getInstance(settings
-		    .getUsername(), settings.getPassword());
-	    twitter.updateStatus(tweet);
-	    Thread.sleep(WAIT_TIME);
-	} catch (InterruptedException excep) {
-	    Log.e(TAG, "Thread has been interrupted " + excep.getMessage());
-	} catch (TwitterException excep) {
-	    Log.e(TAG, "Twitter exception" + excep.getMessage());
 	}
 
-    }
+	private void updateStatus() {
+		try {
+			Settings settings = Settings.getSettings(this);
+			Twitter twitter = settings.getConnection();
 
-    private void processCmd(int keyCode) {
-	switch (keyCode) {
-	case SOFT_KEYBOARD_SUBMIT: {
+			EditText tweetEdit = (EditText) findViewById(R.id.tweet_message);
+			String tweet = tweetEdit.getText().toString();
 
-	    EditText tweet = (EditText) findViewById(R.id.tweet_message);
-
-	    Log.d(TAG, "Message is : " + tweet.getText().toString());
-	    if (left >= 0) {
-		postTweetThread = new Thread(null, postTweet,
-			"MagentoBackground");
-		postTweetThread.start();
-		postProgress = ProgressDialog.show(TweetActivity.this,
-			"Please wait...", "Updating status...", true);
-
-		Log.d(TAG, "Tweet posted");
-		finish();
-	    } else {
-		TextView tweetLength = (TextView) findViewById(R.id.tweet_length);
-		tweetLength.setText("Remove " + Math.abs(left)
-			+ " characters before submitting.");
-
-	    }
-	    break;
-	}
-	case SOFT_KEYBOARD_CANCEL: {
-	    finish();
-	    break;
-	}
-	}
-    }
-
-    class TextListener implements OnKeyListener {
-	private TweetActivity settings;
-
-	public TextListener(TweetActivity settings) {
-	    this.settings = settings;
-	}
-
-	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(TAG, "Received keycode: " + keyCode);
-	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-		if (view instanceof EditText) {
-		    EditText editTxt = (EditText) view;
-		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) { // Clear
-			editTxt.setText("");
-		    } else {
-			// calculate the length of the text entered
-			// and display the remaining number of characters
-			TextView tweetLength = (TextView) findViewById(R.id.tweet_length);
-			left = TWEET_LENGTH
-				- editTxt.getText().toString().length();
-			tweetLength.setText("Characters remaining " + left);
-			settings.processCmd(keyCode);
-		    }
+			twitter.updateStatus(tweet);
+			Thread.sleep(WAIT_TIME);
+		} catch (InterruptedException excep) {
+			Log.e(TAG, "Thread has been interrupted " + excep.getMessage());
+		} catch (TwitterException excep) {
+			Log.e(TAG, "Twitter exception" + excep.getMessage());
 		}
-	    }
-	    return false;
 	}
-    }
+
+	private void processCmd(int keyCode) {
+		switch (keyCode) {
+		case SOFT_KEYBOARD_SUBMIT:
+
+			EditText tweet = (EditText) findViewById(R.id.tweet_message);
+
+			Log.d(TAG, "Message is : " + tweet.getText().toString());
+			if (left >= 0) {
+				postTweetThread = new Thread(null, postTweet,
+						"MagentoBackground");
+				postTweetThread.start();
+				postProgress = ProgressDialog.show(TweetActivity.this,
+						"Please wait...", "Updating status...", true);
+
+				Log.d(TAG, "Tweet posted");
+				finish();
+			} else {
+				TextView tweetLength = (TextView) findViewById(R.id.tweet_length);
+				tweetLength.setText("Remove " + Math.abs(left)
+						+ " characters before submitting.");
+			}
+			break;
+		case SOFT_KEYBOARD_CANCEL:
+			finish();
+			break;
+		}
+	}
+
+	class TextListener implements OnKeyListener {
+		private TweetActivity settings;
+
+		public TextListener(TweetActivity settings) {
+			this.settings = settings;
+		}
+
+		public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+			Log.d(TAG, "Received keycode: " + keyCode);
+			if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+				if (view instanceof EditText) {
+					EditText editTxt = (EditText) view;
+					if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) { // Clear
+						editTxt.setText("");
+					} else {
+						// calculate the length of the text entered
+						// and display the remaining number of characters
+						TextView tweetLength = (TextView) findViewById(R.id.tweet_length);
+						left = TWEET_LENGTH
+								- editTxt.getText().toString().length();
+						tweetLength
+								.setText("" + left + " characters remaining");
+						settings.processCmd(keyCode);
+					}
+				}
+			}
+			return false;
+		}
+	}
 }

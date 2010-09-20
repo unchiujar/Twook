@@ -21,15 +21,11 @@ This file is part of the Twook project http://github.com/unchiujar/Twook
 	android:layout_width="fill_parent" android:orientation="vertical"
 	android:layout_height="760px" android:background="#FFFFFFFF">
 	<!-- this Frame is used merely to block out the eink-display -->
+	<WebView android:id="@+id/web_frame"
+		android:layout_width="fill_parent" android:layout_height="700px"></WebView>
 	<EditText android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/username"
-		android:hint="Enter Twitter username" android:inputType="text"></EditText>
-	<EditText android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/password"
-		android:hint="Enter Twitter account password" android:inputType="textPassword"></EditText>
-
-
-
+		android:layout_height="wrap_content" android:id="@+id/pin"
+		android:hint="Enter Twitter PIN" android:inputType="text"></EditText>
 
 
 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/validation" android:textColor="#000000"></TextView>

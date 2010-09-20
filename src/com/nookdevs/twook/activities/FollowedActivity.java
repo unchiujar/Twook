@@ -40,46 +40,39 @@ import com.nookdevs.twook.services.FollowedDownloaderService;
  * 
  */
 public class FollowedActivity extends TimelineActivity {
-    private static final String TAG = FollowedActivity.class.getName();
-    FollowedDownloaderService service;
+	private static final String TAG = FollowedActivity.class.getName();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	// set the title at the top of the eink screen
-	Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.followed_timeline).toString();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// set the title at the top of the eink screen
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.followed_timeline).toString();
+	}
 
-    @Override
-    protected void createListeners() {
-	btn_followed.setOnClickListener(new OnClickListener() {
+	@Override
+	protected void createListeners() {
+		btn_followed.setOnClickListener(new OnClickListener() {
 
-	    @Override
-	    public void onClick(View v) {
-		service.doDownload();
-		Log.d(TAG, "Followed button clicked");
+			@Override
+			public void onClick(View v) {
+				service.doDownload();
+				Log.d(TAG, "Followed button clicked");
 
-	    }
-	});
+			}
+		});
 
-    }
+	}
 
-    @Override
-    protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
-	service.doCleanup();
-    }
+	@Override
+	protected void setDownloadService() {
+		service = new FollowedDownloaderService();
+		intent = new Intent(this, FollowedDownloaderService.class);
+		startService(intent);
+		service.setMainActivity(this);
+		service.startDownload();
 
-    @Override
-    protected void setDownloadService() {
-	service = new FollowedDownloaderService();
-	intent = new Intent(this, FollowedDownloaderService.class);
-	startService(intent);
-	service.setMainActivity(this);
-	service.startDownload();
-
-    }
+	}
 }

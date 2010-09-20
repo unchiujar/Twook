@@ -39,47 +39,35 @@ import com.nookdevs.twook.services.HomeTimelineDownloaderService;
  * 
  */
 public class HomeTimelineActivity extends TimelineActivity {
-    private static final String TAG = HomeTimelineActivity.class.getName();
-    HomeTimelineDownloaderService service;
+	private static final String TAG = HomeTimelineActivity.class.getName();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	// set the title at the top of the eink screen
-	Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.home_timeline).toString();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// set the title at the top of the eink screen
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.home_timeline).toString();
+	}
 
-    @Override
-    protected void createListeners() {
-	btn_home_timeline.setOnClickListener(new OnClickListener() {
+	@Override
+	protected void createListeners() {
+		btn_home_timeline.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				service.doDownload();
+				Log.d(TAG, "Home " + "timeline button clicked");
+			}
+		});
+	}
 
-	    @Override
-	    public void onClick(View v) {
-		service.doDownload();
-		Log.d(TAG, "Home "
-			+ "timeline button clicked");
-
-	    }
-	});
-
-    }
-
-    @Override
-    protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
-	service.doCleanup();
-    }
-
-    @Override
-    protected void setDownloadService() {
-	service = new HomeTimelineDownloaderService();
-	intent = new Intent(this, HomeTimelineDownloaderService.class);
-	startService(intent);
-	service.setMainActivity(this);
-	service.startDownload();
-
-    }
+	@Override
+	protected void setDownloadService() {
+		service = new HomeTimelineDownloaderService();
+		intent = new Intent(this, HomeTimelineDownloaderService.class);
+		startService(intent);
+		service.setMainActivity(this);
+		service.startDownload();
+	}
 }

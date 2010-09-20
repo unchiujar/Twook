@@ -40,47 +40,39 @@ import com.nookdevs.twook.services.RepliesDownloaderService;
  */
 
 public class RepliesTimelineActivity extends TimelineActivity {
-    private final static String TAG = RepliesTimelineActivity.class.getName();
+	private final static String TAG = RepliesTimelineActivity.class.getName();
 
-    RepliesDownloaderService service;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	// set the title at the top of the eink screen
-	Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.replies_timeline).toString();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// set the title at the top of the eink screen
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.replies_timeline).toString();
+	}
 
-    @Override
-    protected void createListeners() {
-	btn_replies_timeline.setOnClickListener(new OnClickListener() {
+	@Override
+	protected void createListeners() {
+		btn_replies_timeline.setOnClickListener(new OnClickListener() {
 
-	    @Override
-	    public void onClick(View v) {
-		service.doDownload();
-		Log.d(TAG,
-			"Replies timeline button clicked");
+			@Override
+			public void onClick(View v) {
+				service.doDownload();
+				Log.d(TAG, "Replies timeline button clicked");
 
-	    }
-	});
+			}
+		});
 
-    }
+	}
 
-    @Override
-    protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
-	service.doCleanup();
-    }
+	@Override
+	protected void setDownloadService() {
+		service = new RepliesDownloaderService();
+		intent = new Intent(this, RepliesDownloaderService.class);
+		startService(intent);
+		service.setMainActivity(this);
+		service.startDownload();
 
-    @Override
-    protected void setDownloadService() {
-	service = new RepliesDownloaderService();
-	intent = new Intent(this, RepliesDownloaderService.class);
-	startService(intent);
-	service.setMainActivity(this);
-	service.startDownload();
-
-    }
+	}
 }

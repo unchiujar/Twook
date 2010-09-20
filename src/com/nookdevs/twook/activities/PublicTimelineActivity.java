@@ -40,46 +40,36 @@ import com.nookdevs.twook.services.PublicMessagesDownloaderService;
  */
 
 public class PublicTimelineActivity extends TimelineActivity {
-    private final static String TAG = PublicTimelineActivity.class.getName();
-    PublicMessagesDownloaderService service;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	// set the title at the top of the eink screen
-	Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.public_timeline).toString();
-    }
+	private final static String TAG = PublicTimelineActivity.class.getName();
 
-    @Override
-    protected void createListeners() {
-	btn_public_timeline.setOnClickListener(new OnClickListener() {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// set the title at the top of the eink screen
+		Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.public_timeline).toString();
+	}
 
-	    @Override
-	    public void onClick(View v) {
-		service.doDownload();
-		Log.d(TAG, "Public timeline button clicked");
-	    }
-	});
+	@Override
+	protected void createListeners() {
+		btn_public_timeline.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				service.doDownload();
+				Log.d(TAG, "Public timeline button clicked");
+			}
+		});
+	}
 
-    }
-
-    
-    @Override
-    protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
-	service.doCleanup();
-    }
-
-    @Override
-    protected void setDownloadService() {
-	service = new PublicMessagesDownloaderService();
-	intent = new Intent(this, PublicMessagesDownloaderService.class);
-	startService(intent);
-	Log.d(TAG, "Service started, setting main activity");
-	service.setMainActivity(this);
-	service.startDownload();
-
-    }
+	@Override
+	protected void setDownloadService() {
+		service = new PublicMessagesDownloaderService();
+		intent = new Intent(this, PublicMessagesDownloaderService.class);
+		startService(intent);
+		Log.d(TAG, "Service started, setting main activity");
+		service.setMainActivity(this);
+		service.startDownload();
+	}
 }

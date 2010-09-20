@@ -46,212 +46,208 @@ import com.nookdevs.twook.services.SearchService;
  */
 
 public class SearchActivity extends TimelineActivity {
-    /** Class name used in logging statements */
-    private static final String TAG = SearchActivity.class.getName();
-    private static final String SEARCH_BUTTON_MESSAGE = "Search button clicked (start search mode)";
-    private int searchNumber = 0;
-    private String currentSearch = "nook";
+	/** Class name used in logging statements */
+	private static final String TAG = SearchActivity.class.getName();
+	private static final String SEARCH_BUTTON_MESSAGE = "Search button clicked (start search mode)";
+	private int searchNumber = 0;
+	private String currentSearch = "nook";
 
-    private String search1 = "nook";
-    private String search2 = "twook";
-    private String search3 = "android";
-    private String search4 = "android";
+	private String search1 = "nook";
+	private String search2 = "twook";
+	private String search3 = "android";
+	private String search4 = "android";
 
-    private TextEditListener softKeyListener = new TextEditListener(this);
-    private ListListener mlistListener = new ListListener(this);
+	private TextEditListener softKeyListener = new TextEditListener(this);
+	private ListListener mlistListener = new ListListener(this);
 
-    private EditText textSearch;
-    SearchService service;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.search);
-	btn_search1 = (ImageButton) findViewById(R.id.search1);
+	private EditText textSearch;
 
-	// this is needed because we load a different layout
-	// so the listeners have to be reinitialized
-	createListeners();
-	// set the title at the top of the eink screen
-	final Resources res = getResources();
-	NAME = res.getText(R.string.app_name).toString()
-		+ res.getText(R.string.title_separator).toString()
-		+ res.getText(R.string.search).toString();
-	final ListView list = (ListView) findViewById(android.R.id.list);
-	list.requestFocus();
-	list.setOnKeyListener(mlistListener);
-	textSearch = (EditText) findViewById(R.id.search_term);
-	textSearch.setOnKeyListener(softKeyListener);
-	updateIcon();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.search);
+		btn_search1 = (ImageButton) findViewById(R.id.search1);
 
-    @Override
-    protected void createListeners() {
-	super.createDefaultListeners();
-	btn_search1.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-		textSearch.setText(search1);
-		currentSearch = search1;
-		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
-
-	    }
-	});
-	btn_search1.setOnLongClickListener(new OnLongClickListener() {
-
-	    @Override
-	    public boolean onLongClick(View view) {
-		searchNumber = 1;
-		textSearch.setText(search1);
-		textSearch.requestFocus();
-		final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-		return true;
-	    }
-	});
-	btn_search2.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-		textSearch.setText(search2);
-		currentSearch = search2;
-		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
-
-	    }
-	});
-	btn_search2.setOnLongClickListener(new OnLongClickListener() {
-
-	    @Override
-	    public boolean onLongClick(View view) {
-		searchNumber = 2;
-		textSearch.setText(search2);
-		textSearch.requestFocus();
-		final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-		return true;
-	    }
-	});
-	btn_search3.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-		textSearch.setText(search3);
-		currentSearch = search3;
-		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
-
-	    }
-	});
-	btn_search3.setOnLongClickListener(new OnLongClickListener() {
-
-	    @Override
-	    public boolean onLongClick(View view) {
-		searchNumber = 3;
-		textSearch.setText(search3);
-		textSearch.requestFocus();
-		final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-		return true;
-	    }
-	});
-
-	btn_search4.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-		textSearch.setText(search4);
-		currentSearch = search4;
-		service.doDownload();
-		Log.d(TAG, SEARCH_BUTTON_MESSAGE);
-
-	    }
-	});
-	btn_search4.setOnLongClickListener(new OnLongClickListener() {
-
-	    @Override
-	    public boolean onLongClick(View view) {
-		searchNumber = 4;
-		textSearch.setText(search4);
-		textSearch.requestFocus();
-		final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-		return true;
-	    }
-	});
-
-    }
-
-    /**
-     * @author Vasile Jureschi <vasile.jureschi@gmail.com>
-     * 
-     */
-    class TextEditListener implements OnKeyListener {
-	private SearchActivity settings;
-
-	public TextEditListener(SearchActivity settings) {
-	    this.settings = settings;
+		// this is needed because we load a different layout
+		// so the listeners have to be reinitialized
+		createListeners();
+		// set the title at the top of the eink screen
+		final Resources res = getResources();
+		NAME = res.getText(R.string.app_name).toString()
+				+ res.getText(R.string.title_separator).toString()
+				+ res.getText(R.string.search).toString();
+		final ListView list = (ListView) findViewById(android.R.id.list);
+		list.requestFocus();
+		list.setOnKeyListener(mlistListener);
+		textSearch = (EditText) findViewById(R.id.search_term);
+		textSearch.setOnKeyListener(softKeyListener);
+		updateIcon();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.view.View.OnKeyListener#onKey(android.view.View, int,
-	 * android.view.KeyEvent)
-	 */
-	public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-	    Log.d(TAG, "Received keycode: " + keyCode);
-	    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-		if (view instanceof EditText) {
-		    final EditText editTxt = (EditText) view;
-		    // Clear
-		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) {
-			editTxt.setText("");
-		    }
-		    if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_SUBMIT) {
-			currentSearch = editTxt.getText().toString();
-			// updateView(MESSAGE + currentSearch);
-			switch (searchNumber) {
-			case 1:
-			    search1 = currentSearch;
-			    break;
-			case 2:
-			    search2 = currentSearch;
-			    break;
-			case 3:
-			    search3 = currentSearch;
-			    break;
-			case 4:
-			    search4 = currentSearch;
-			    break;
+	@Override
+	protected void createListeners() {
+		super.createDefaultListeners();
+		btn_search1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				textSearch.setText(search1);
+				currentSearch = search1;
+				service.doDownload();
+				Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+
 			}
-		    }
-		    service.doDownload();
+		});
+		btn_search1.setOnLongClickListener(new OnLongClickListener() {
 
+			@Override
+			public boolean onLongClick(View view) {
+				searchNumber = 1;
+				textSearch.setText(search1);
+				textSearch.requestFocus();
+				final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+				return true;
+			}
+		});
+		btn_search2.setOnClickListener(new OnClickListener() {
 
-		}
-	    }
-	    return true;
+			@Override
+			public void onClick(View v) {
+				textSearch.setText(search2);
+				currentSearch = search2;
+				service.doDownload();
+				Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+
+			}
+		});
+		btn_search2.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View view) {
+				searchNumber = 2;
+				textSearch.setText(search2);
+				textSearch.requestFocus();
+				final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+				return true;
+			}
+		});
+		btn_search3.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				textSearch.setText(search3);
+				currentSearch = search3;
+				service.doDownload();
+				Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+
+			}
+		});
+		btn_search3.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View view) {
+				searchNumber = 3;
+				textSearch.setText(search3);
+				textSearch.requestFocus();
+				final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+				return true;
+			}
+		});
+
+		btn_search4.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				textSearch.setText(search4);
+				currentSearch = search4;
+				service.doDownload();
+				Log.d(TAG, SEARCH_BUTTON_MESSAGE);
+
+			}
+		});
+		btn_search4.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View view) {
+				searchNumber = 4;
+				textSearch.setText(search4);
+				textSearch.requestFocus();
+				final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+				return true;
+			}
+		});
+
 	}
-    }
 
-    public String getSearchTerm() {
-	return currentSearch;
-    }
+	/**
+	 * @author Vasile Jureschi <vasile.jureschi@gmail.com>
+	 * 
+	 */
+	class TextEditListener implements OnKeyListener {
+		// keep a reference to our parent, though we don't use it for now
+		@SuppressWarnings("unused")
+		private SearchActivity settings;
 
-    @Override
-    protected void stopDownloadService() {
-	Log.d(TAG, "Trying to stop service....");
-	service.doCleanup();    }
+		public TextEditListener(SearchActivity settings) {
+			this.settings = settings;
+		}
 
-    @Override
-    protected void setDownloadService() {
-	service = new SearchService();
-	intent = new Intent(this, RepliesDownloaderService.class);
-	startService(intent);
-	service.setMainActivity(this);
-	service.startDownload();
-    }
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.view.View.OnKeyListener#onKey(android.view.View, int,
+		 * android.view.KeyEvent)
+		 */
+		public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+			Log.d(TAG, "Received keycode: " + keyCode);
+			if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+				if (view instanceof EditText) {
+					final EditText editTxt = (EditText) view;
+					// Clear
+					if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_CLEAR) {
+						editTxt.setText("");
+					}
+					if (keyCode == nookBaseSimpleActivity.SOFT_KEYBOARD_SUBMIT) {
+						currentSearch = editTxt.getText().toString();
+						// updateView(MESSAGE + currentSearch);
+						switch (searchNumber) {
+						case 1:
+							search1 = currentSearch;
+							break;
+						case 2:
+							search2 = currentSearch;
+							break;
+						case 3:
+							search3 = currentSearch;
+							break;
+						case 4:
+							search4 = currentSearch;
+							break;
+						}
+					}
+					service.doDownload();
+
+				}
+			}
+			return true;
+		}
+	}
+
+	public String getSearchTerm() {
+		return currentSearch;
+	}
+
+	@Override
+	protected void setDownloadService() {
+		service = new SearchService();
+		intent = new Intent(this, RepliesDownloaderService.class);
+		startService(intent);
+		service.setMainActivity(this);
+		service.startDownload();
+	}
 
 }

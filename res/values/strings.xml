@@ -16,21 +16,6 @@
 	-->
 
 <resources>
-	<string name="guni_gugu">Guni Gugu</string>
-
-	<string-array name="invalid_credentials">
-		<item>You do know they have pills for that, don't you ?</item>
-		<item>Granpa, is that you ?</item>
-		<item>Stop right now and go buy a pack of PostIt notes before you
-			forget all your passwords</item>
-		<item>PEBKAC</item>
-		<item>DO NOT get a job in which you have to enter passwords...</item>
-		<item>Nope, you better start writing your passwords down from now
-			on...</item>
-		<item>I forgot what the error message was, you know how that is,
-			don&apos;t you ?</item>
-	</string-array>
-
 	<string name="app_name">Twook</string>
 	<string name="direct_messages">Direct Messages</string>
 	<string name="home_timeline">Home Timeline</string>

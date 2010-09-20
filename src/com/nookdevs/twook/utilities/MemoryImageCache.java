@@ -8,27 +8,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 /**
  * @author Vasile Jureschi <vasile.jureschi@gmail.com>
  * 
  */
 public class MemoryImageCache implements ImageCache {
-    private static final String TAG = MemoryImageCache.class.getName();
+    @SuppressWarnings("unused")
+	private static final String TAG = MemoryImageCache.class.getName();
     private static final int MAX_SIZE = 300;
     private static MemoryImageCache instance;
-    private Map<String, Bitmap> imageCache = Collections
-	    .synchronizedMap(new HashMap<String, Bitmap>());
+    private Map<String, Bitmap> imageCache;
 
     public static MemoryImageCache getInstance() {
-	if (instance == null) {
-	    instance = new MemoryImageCache();
-	}
-	return instance;
+		if (instance == null) {
+		    instance = new MemoryImageCache();
+		}
+		return instance;
     }
 
     private MemoryImageCache() {
+    	imageCache = Collections.synchronizedMap(new HashMap<String, Bitmap>());
     }
 
     /*
@@ -38,7 +38,7 @@ public class MemoryImageCache implements ImageCache {
      */
     @Override
     public Bitmap getImage(String username) {
-	return imageCache.get(username);
+    	return imageCache.get(username);
     }
 
     /*
@@ -49,12 +49,16 @@ public class MemoryImageCache implements ImageCache {
      */
     @Override
     public void insertImage(String username, Bitmap icon) {
-	int cacheSize = imageCache.size();
-	Log.d(TAG, "Cache size is :" + imageCache.size());
-	if (cacheSize > MAX_SIZE) {
-	    imageCache.clear();
-	}
-	imageCache.put(username, icon);
+		int cacheSize = imageCache.size();
+		//Log.d(TAG, "Cache size is :" + imageCache.size());
+		if (cacheSize > MAX_SIZE) {
+			/* Ideally we would kick out the least-recently-used icons,
+			 * but we can just naively clear the entire cache for not
+			 * that much penalty.
+			 */
+		    imageCache.clear();
+		}
+		imageCache.put(username, icon);
     }
 
     /*
@@ -64,7 +68,7 @@ public class MemoryImageCache implements ImageCache {
      */
     @Override
     public boolean isCached(String username) {
-	return imageCache.containsKey(username);
+    	return imageCache.containsKey(username);
     }
 
 }

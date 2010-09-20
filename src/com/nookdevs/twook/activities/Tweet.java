@@ -33,71 +33,74 @@ import android.util.Log;
  * @see TimelineActivity
  */
 public class Tweet {
-    private final static String TAG = Tweet.class.getName();
-    /** The status message. */
-    private String message;
-    /** The status icon of the user  */
-    private Bitmap image;
-    /** The name of the user who posted this tweet. */
-    private String username;
+	private final static String TAG = Tweet.class.getName();
+	/** The status message. */
+	private String message;
+	/** The status icon of the user */
+	private Bitmap image;
+	/** The name of the user who posted this tweet. */
+	private String username;
 
-    private URL imageURL;
-    public URL getImageURL() {
-        return imageURL;
-    }
+	private URL imageURL;
 
-    public void setImageURL(URL imageURL) {
-        this.imageURL = imageURL;
-    }
-    
-    public void setImageURL(String imageURL)  {
-        try {
-	    this.imageURL = new URL(imageURL);
-	} catch (MalformedURLException e) {
-	    Log.e(TAG, e.getMessage());
+	public URL getImageURL() {
+		return imageURL;
 	}
-    }
 
-    /**
-     * @return The name of the user who posted this tweet.
-     */
-    public String getUsername() {
-        return username;
-    }
+	public void setImageURL(URL imageURL) {
+		this.imageURL = imageURL;
+	}
 
-    /**
-     * @param username the name of the user that posted this tweet
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setImageURL(String imageURL) {
+		try {
+			this.imageURL = new URL(imageURL);
+		} catch (MalformedURLException e) {
+			Log.e(TAG, e.getMessage());
+		}
+	}
 
-    /**
-     * @return the image of the user who posted the tweet
-     */
-    public Bitmap getImage() {
-        return image;
-    }
+	/**
+	 * @return The name of the user who posted this tweet.
+	 */
+	public String getUsername() {
+		return username;
+	}
 
-    /**
-     * @param image the image of the user who posted the tweet
-     */
-    public void setImage(Bitmap image) {
-        this.image = image;
-    }
+	/**
+	 * @param username
+	 *            the name of the user that posted this tweet
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    /**
-     * @return the status message (tweet)
-     */
-    public String getMessage() {
-        return message;
-    }
+	/**
+	 * @return the image of the user who posted the tweet
+	 */
+	public Bitmap getImage() {
+		return image;
+	}
 
-    /**
-     * @param message 
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	/**
+	 * @param image
+	 *            the image of the user who posted the tweet
+	 */
+	public void setImage(Bitmap image) {
+		this.image = image;
+	}
+
+	/**
+	 * @return the status message (tweet)
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * @param message
+	 */
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 }

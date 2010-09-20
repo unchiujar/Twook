@@ -40,8 +40,8 @@ public class Utilities {
 	    tweet.setImageURL(message.getProfileImageUrl());
 	    tweet.setImage(null);
 	    tweets.add(tweet);
-	    Log.v(TAG, "Added : " + tweet.getUsername() + "- "
-		    + tweet.getMessage());
+	    //Log.v(TAG, "Added : " + tweet.getUsername() + "- "
+		//    + tweet.getMessage());
 	}
 	Log.d(TAG, "Tweets to tweets transformation done.");
 	return tweets;
@@ -65,8 +65,8 @@ public class Utilities {
 	    tweet.setMessage(message.getText());
 	    tweet.setImageURL(message.getUser().getProfileImageURL());
 	    tweets.add(tweet);
-	    Log.v(TAG, "Added : " + tweet.getUsername() + "- "
-		    + tweet.getMessage());
+	    //Log.v(TAG, "Added : " + tweet.getUsername() + "- "
+		//    + tweet.getMessage());
 	}
 	Log.d(TAG, "Statuses to tweets transformation done.");
 	return tweets;
