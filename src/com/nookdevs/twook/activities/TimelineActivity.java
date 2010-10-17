@@ -20,8 +20,12 @@ package com.nookdevs.twook.activities;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -92,7 +96,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 	protected void onStart() {
 		super.onStart();
 		Log.i(TAG, "Activity started");
-
+		checkWireless();
 		startService(intent);
 	}
 
@@ -116,6 +120,7 @@ public abstract class TimelineActivity extends nookBaseActivity {
 		super.onResume();
 		Log.i(TAG, "Activity resumed");
 		updateIcon();
+		checkWireless();
 		resumeDownloadService();
 	}
 
@@ -505,4 +510,33 @@ public abstract class TimelineActivity extends nookBaseActivity {
 			return false;
 		}
 	}
+	
+	/**
+	 * Warns the user to start the wireless or the mobile connection 
+	 * if they are not started and stops the applications.
+	 */
+	private void checkWireless() {
+            ConnectivityManager cmgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo wifiInfo = cmgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            NetworkInfo mobileInfo = cmgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+            boolean wifiConnection = (wifiInfo == null) ? false : wifiInfo.isConnected();
+            boolean mobileConnection = (mobileInfo == null) ? false : mobileInfo.isConnected();
+            
+            if (!wifiConnection && !mobileConnection) { 
+        	
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);                
+                builder.setTitle("Unable to start Twook.").
+                	setMessage("To use Twook an Internet connection is needed. Please enable the mobile connection" +
+                		" or the wireless connection and then restart the application.")
+                       .setCancelable(false)
+                       .setNeutralButton("Exit Twook", new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                                TimelineActivity.this.finish();
+                           }
+                       });
+                AlertDialog alertStartWifi = builder.create();
+                alertStartWifi.show();
+            } 	    
+	}	
 }

@@ -37,7 +37,6 @@ import com.nookdevs.twook.services.PersonalMessagesDownloaderService;
  */
 public class PersonalTimelineActivity extends TimelineActivity {
 	private static final String TAG = PersonalTimelineActivity.class.getName();
-	PersonalMessagesDownloaderService service;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

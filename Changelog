@@ -1,3 +1,10 @@
+2010-10-16 Vasile Jureschi  <vasile.jureschi@gmail.com>
+	* fixed personal timeline NPE
+	* added warning if a network  connection is not enabled
+
+2010-10-10 Vasile Jureschi  <vasile.jureschi@gmail.com>
+	* merged with the Dave Wagner branch - added OAuth 
+
 2010-04-29 Vasile Jureschi  <vasile.jureschi@gmail.com>
 	* fixed search and fixed background services which did not stop
 	* moved utilities from MessagesDownloader class to their own class
@@ -8,7 +15,6 @@
 	* moved classes in two separate packages, activities and services
 	* added image cache and multithreading for icon downloads
 	
-
 2010-04-17 Vasile Jureschi  <vasile.jureschi@gmail.com>
 	* added all the button images for the first and second row
 	* changed the tweet button to a large button on the left that displays
@@ -30,22 +36,17 @@
 	* add an example search button with functionality, more to come BUGGY
 	* added a search layout with a search text edit at the bottom
 	
-	
-2010-04-13 Vasile Jureschi  <vasile.jureschi@gmail.com>
-		
-		* switched to using twitter4j
-		* added application icon for Kyled
-		* modified the layout for the buttons, now there are 3 rows of buttons
-		* add functionality for retrieving: direct messages, retweets, 
+2010-04-13 Vasile Jureschi  <vasile.jureschi@gmail.com>		
+	* switched to using twitter4j
+	* added application icon for Kyled
+	* modified the layout for the buttons, now there are 3 rows of buttons
+	* add functionality for retrieving: direct messages, retweets, 
 			friends timeline, home timeline
-		* added credits file
+	* added credits file
 		
-
-2010-04-10 Vasile Jureschi  <vasile.jureschi@gmail.com>
+2010-04-10 Vasile Jureschi  <vasile.jureschi@gmail.com>		
+	* added support for scrolling the ListView containing the tweets
 		
-		* added support for scrolling the ListView containing the tweets
-		
-2010-04-09 Vasile Jureschi  <vasile.jureschi@gmail.com>
-     	
-     	* added validity test for credentials  entered on the settings page
-     	* added message for invalid credentials
+2010-04-09 Vasile Jureschi  <vasile.jureschi@gmail.com>	
+    * added validity test for credentials  entered on the settings page
+    * added message for invalid credentials
